@@ -16,9 +16,9 @@ ASDF does NOT include a lot of extra business features (accounting, timekeeping,
 
 # Installation
 - Simply copy the latest version of the files into your PHP server's directory (they'll have their own instructions for this). 
-Then access the login.php file from your web browser of choice (Chrome recommended).  
+Then access the index.php file from your web browser of choice (Chrome recommended).  
 - On first launch, it will guide you through the setup of the system, including connecting to the database, adding users, setting up your project, and so on.
-- From there, your users can access the Login page and sign in with the names you've defined; they'll set their own passwords, profile information, and so on.
+- From there, your users can access the Login page (index.php) and sign in with the names you've defined; they'll set their own passwords, profile information, and so on.
 
 It's recommended for everyone to read through the Guide page within ASDF once they're logged-in.  This will explain a lot more about the process, and how to use the system to help manage a development project.
 
