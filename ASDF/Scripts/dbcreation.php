@@ -17,7 +17,7 @@ $sql = "CREATE DATABASE IF NOT EXISTS ASDF;
             userID int NOT NULL,
             name varchar(50) NULL,
             initials varchar(4) NULL,
-            blurb varchar (300) NULL,
+            details varchar (300) NULL,
             colour varchar (7) NULL,
             
             CONSTRAINT PK_Users PRIMARY KEY (userID)
