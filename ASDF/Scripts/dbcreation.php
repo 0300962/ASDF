@@ -13,7 +13,7 @@ echo "Beginning step 1\n\n";
 $sql = "CREATE DATABASE IF NOT EXISTS ASDF; 
         USE ASDF;
         
-        CREATE TABLE Users (
+        CREATE TABLE users (
             userID int NOT NULL,
             name varchar(50) NULL,
             initials varchar(4) NULL,
@@ -29,7 +29,7 @@ if (!$result) {  //Could not create Database or Users Table
 }
 
 echo "Beginning step 2\n\n";
-$sql = "CREATE TABLE Logins (
+$sql = "CREATE TABLE logins (
             login varchar(128) NOT NULL,
             userID int NOT NULL AUTO_INCREMENT UNIQUE,            
             pwhash varchar(256) NULL,
@@ -44,7 +44,7 @@ if (!$result) {  //Could not create Logins table
 }
 
 echo "Beginning step 3\n\n";
-$sql = "CREATE TABLE PBIs (
+$sql = "CREATE TABLE pbis (
             pbiNo int NOT NULL AUTO_INCREMENT,
             userStory varchar(300) NOT NULL,
             acceptance varchar(300) NOT NULL,
@@ -59,7 +59,7 @@ if (!$result) {  //Could not create Project Backlog Items table
 }
 
 echo "Beginning step 4\n\n";
-$sql = "CREATE TABLE SBIs (
+$sql = "CREATE TABLE sbis (
             sbiNo int NOT NULL AUTO_INCREMENT,
             pbiNo int NOT NULL,
             task varchar(300) NOT NULL,
@@ -76,10 +76,11 @@ if (!$result) {  //Could not create Sprint Backlog Items Table
 }
 
 echo "Beginning step 5\n\n";
-$sql = "CREATE TABLE Sprints (
+$sql = "CREATE TABLE sprints (
             sprintNo int NOT NULL AUTO_INCREMENT,
             startDate date NOT NULL,
             endDate date NULL,
+            startingBacklog int(4) NULL,
             backlogTotal int(4) NULL,
             
             CONSTRAINT PK_Sprints PRIMARY KEY (sprintNo)
@@ -90,7 +91,7 @@ if (!$result) {  //Could not create Sprint History table
 }
 
 echo "Beginning step 6\n\n";
-$sql = "CREATE TABLE Chat (
+$sql = "CREATE TABLE chat (
             msgNo int NOT NULL AUTO_INCREMENT,
             sent datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             msg varchar (180) NOT NULL,
