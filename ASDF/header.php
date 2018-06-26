@@ -93,8 +93,7 @@ $_SESSION['name'] = 'tester';
         echo "<div id='greeting'>Welcome {$_SESSION['name']}</div>";
         ?>
     </nav>
-</body>
-</html>
+
 
 
 
