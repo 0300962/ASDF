@@ -20,13 +20,13 @@ function databaseConnection($name, $pw, $dbhost)
     $date = date("Y/m/d h:i:sa");
     $text = "<?php  //Created by ASDF at {$date} \n";
     fwrite($dbinfo, $text);
-    $text = "DEFINE ('DB_USER', {$username}); \n";
+    $text = "DEFINE ('DB_USER', '{$username}'); \n";
     fwrite($dbinfo, $text);
-    $text = "DEFINE ('DB_PSWD', {$password}); \n";
+    $text = "DEFINE ('DB_PSWD', '{$password}'); \n";
     fwrite($dbinfo, $text);
-    $text = "DEFINE ('DB_HOST', {$host}); \n";
+    $text = "DEFINE ('DB_HOST', '{$host}'); \n";
     fwrite($dbinfo, $text);
-    $text = "DEFINE ('DB_NAME', 'ASDF'); \n";
+    $text = "DEFINE ('DB_NAME', 'asdf'); \n";
     fwrite($dbinfo, $text);
 
     $text = "\$db = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME); \n";
