@@ -20,10 +20,18 @@ a:link, a:visited {
     text-decoration: none;
     color: white;
 }
-
 a:hover {
     color: brown;
+    background-color: aquamarine;
 }
+
+.link:hover {
+    background-color: aquamarine;
+}
+.link:hover a:link {
+    color: brown;
+}
+
 
 /*-------  Drop-down menu controls -----------*/
 .drop-down {
@@ -54,15 +62,7 @@ a:hover {
 .drop-down:hover .menu-options {
     display: block;
 }
-.menu-options a:hover {
-    background-color: aquamarine;
-    color: brown;
-}
 /*----------------------------------------*/
-
-.link:hover {
-    background-color: aquamarine;
-}
 
 #sprint_info{
     position: absolute;
