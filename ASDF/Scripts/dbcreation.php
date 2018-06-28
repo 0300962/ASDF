@@ -9,11 +9,14 @@
 
 include_once 'connection.php';
 echo "Beginning step 1\n\n";
-
-$sql = "CREATE DATABASE IF NOT EXISTS ASDF; 
-        USE ASDF;
-        
-        CREATE TABLE users (
+//Creates the database
+$sql = "CREATE DATABASE IF NOT EXISTS asdf;";
+$result = mysqli_query($db, $sql);
+//Selects the database
+$sql =  "USE asdf;";
+$result = mysqli_query($db, $sql);
+//Creates the Users table
+$sql = "CREATE TABLE users (
             userID int NOT NULL,
             name varchar(50) NULL,
             initials varchar(4) NULL,
@@ -26,6 +29,7 @@ $sql = "CREATE DATABASE IF NOT EXISTS ASDF;
 $result = mysqli_query($db, $sql);
 if (!$result) {  //Could not create Database or Users Table
     echo "Step 1 Failed";
+    print_r(mysqli_errno($db));
 }
 
 echo "Beginning step 2\n\n";
@@ -41,6 +45,7 @@ $sql = "CREATE TABLE logins (
 $result = mysqli_query($db, $sql);
 if (!$result) {  //Could not create Logins table
     echo "Step 2 Failed";
+    print_r(mysqli_errno($db));
 }
 
 echo "Beginning step 3\n\n";
@@ -53,9 +58,10 @@ $sql = "CREATE TABLE pbis (
             
             CONSTRAINT PK_PBIs PRIMARY KEY (pbiNo)
         );";
-$result = mysqli_query($db, $sql);
+$result = mysqli_multi_query($db, $sql);
 if (!$result) {  //Could not create Project Backlog Items table
     echo "Step 3 Failed";
+    print_r(mysqli_errno($db));
 }
 
 echo "Beginning step 4\n\n";
@@ -70,9 +76,10 @@ $sql = "CREATE TABLE sbis (
             CONSTRAINT PK_SBIs PRIMARY KEY (sbiNo),
             CONSTRAINT FK_SBIs_PBIs FOREIGN KEY (pbiNo) REFERENCES pbis(pbiNo) ON DELETE CASCADE
         );";
-$result = mysqli_query($db, $sql);
+$result = mysqli_multi_query($db, $sql);
 if (!$result) {  //Could not create Sprint Backlog Items Table
     echo "Step 4 Failed";
+    print_r(mysqli_errno($db));
 }
 
 echo "Beginning step 5\n\n";
@@ -88,6 +95,7 @@ $sql = "CREATE TABLE sprints (
 $result = mysqli_query($db, $sql);
 if (!$result) {  //Could not create Sprint History table
     echo "Step 5 Failed";
+    print_r(mysqli_errno($db));
 }
 
 echo "Beginning step 6\n\n";
@@ -103,6 +111,7 @@ $sql = "CREATE TABLE chat (
 $result = mysqli_query($db, $sql);
 if (!$result) {  //Could not create Chat history Table
     echo "Step 6 Failed";
+    print_r(mysqli_errno($db));
 }
             
     

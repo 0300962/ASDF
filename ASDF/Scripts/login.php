@@ -19,6 +19,8 @@ if (isset($_REQUEST['login'])) { //Checks that user was trying to login
     $result = mysqli_query($db, $sql);
     $row = mysqli_fetch_assoc($result);
 
+    //IF-statement to check for new users
+
     $pwhash = $row['pwhash'];
     if(password_verify($pw, $pwhash)) { //Checks if the password matches
         $_SESSION['logged-in'] = TRUE;
@@ -39,12 +41,12 @@ if (isset($_REQUEST['login'])) { //Checks that user was trying to login
         } else { //Existing user
             $_SESSION['name'] = $row['name'];
             $_SESSION['colour'] = $row['colour'];
-            header("Location: task-board.php");
+            header("Location: ../task-board.php");
         }
     } else {
-        header('Location: index.php?error');
+        header('Location: ../index.php?error');
     }
 } else { //User shouldn't be here!
-    header('Location: index.php');
+    header('Location: ../index.php');
     exit;
 }

@@ -65,6 +65,7 @@ $_SESSION['name'] = 'tester';
         <div class="drop-down" id="guide">
             <button class="menubutton">Guide</button>
             <div class="menu-options">
+                <a href="project.php">Project Details</a>
                 <a href="guide.php">User Guide</a>
                 <a href="help.php">Help Page</a>
             </div>

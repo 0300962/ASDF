@@ -49,7 +49,7 @@
 
 <?php
 } else { //Enters setup mode
-    echo "<script type='text/javascript'> location = '../Scripts/setup.php?stage=1'</script>";
+    echo "<script type='text/javascript'> location = 'Scripts/setup.php?stage=1'</script>";
 }
 ?>
 

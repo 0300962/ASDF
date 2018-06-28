@@ -10,7 +10,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 //Creates the connection.php file that the rest of the system shall use.
-function databaseConnection($name, $pw, $dbhost)
+function databaseConnection($name, $pw, $dbhost, $status)
 {
     //Takes the values from the Setup page form
     $username = $name;
@@ -28,11 +28,19 @@ function databaseConnection($name, $pw, $dbhost)
     fwrite($dbinfo, $text);
     $text = "DEFINE ('DB_HOST', '{$host}'); \n";
     fwrite($dbinfo, $text);
-    $text = "DEFINE ('DB_NAME', 'asdf'); \n";
-    fwrite($dbinfo, $text);
+    //Checks whether to include the database name in the connection file - for Setup mode
+    if ($status) {
+        $text = "DEFINE ('DB_NAME', 'asdf'); \n";
+        fwrite($dbinfo, $text);
+        $text = "\$db = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME); \n";
+        fwrite($dbinfo, $text);
+        $text = "mysqli_select_db(\$db, DB_NAME); \n";
+        fwrite($dbinfo, $text);
+    } else {
+        $text = "\$db = mysqli_connect(DB_HOST, DB_USER, DB_PSWD); \n";
+        fwrite($dbinfo, $text);
+    }
 
-    $text = "\$db = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME); \n";
-    fwrite($dbinfo, $text);
     $text = "if (!\$db) {die('Cannot connect to database');} \n";
     fwrite($dbinfo, $text);
 
@@ -74,9 +82,9 @@ switch ($_GET['stage']) {
         echo "Enter the details for your MySQLi server below:";
         ?>
         <form method="post" action="setup.php?stage=3">
-            <input id="host" type="text" placeholder="Database Host" required autofocus>
-            <input id="user" type="text" placeholder="Username for Database" required>
-            <input id="pw" type="text" placeholder="Password for Database" required>
+            <input name="host" type="text" placeholder="Database Host" required autofocus>
+            <input name="user" type="text" placeholder="Username for Database" required>
+            <input name="pw" type="text" placeholder="Password for Database">
             <input type="submit" value="Check...">
         </form>
         Note: If the ASDF server and the database server are running on the same computer, then you probably
@@ -87,13 +95,18 @@ switch ($_GET['stage']) {
     case 3: //Checks and confirms database connection
         $host = $_POST['host'];
         $user = $_POST['user'];
-        $pw = $_POST['pw'];
+        $pw =  $_POST['pw'];
         //Tries to connect using the details
-        $db = mysqli_connect($host, $user, $pw);
-        if ($db) { //Database connection worked
+        $database = mysqli_connect($host, $user, $pw);
+        if ($database) { //Database connection worked
             //Writes connection details to 'connection.php' file
-            databaseConnection($user, $pw, $host);
+            databaseConnection($user, $pw, $host, FALSE);
+            //Creates the database and its tables
+            include_once 'dbcreation.php';
+            //Updates the connection details to specify the ASDF database
+            databaseConnection($user, $pw, $host, TRUE);
             echo "Database connection successful - saved to 'connection.php'";
+
             echo "<a href='setup.php?stage=4'>Next step...</a>";
         } else { //Database connection did not work
             echo "Database connection unsuccessful; please check and try again.";
@@ -103,11 +116,11 @@ switch ($_GET['stage']) {
     case 4: //Creating Admin account
         echo "Now that you can connect to the database, we can start storing data.  First, enter a login name
         and password for yourself.  You will be a system Administrator!  The next time you log-in, you will
-        add you name, initials and so on.";
+        add your name, initials and so on.";
         ?>
         <form method="post" action="setup.php?stage=5">
-            <input id="login" type="text" placeholder="Username" required autofocus>
-            <input id="pw" type="password" placeholder="Password" required>
+            <input name="login" type="text" placeholder="Username" required autofocus>
+            <input name="pw" type="password" placeholder="Password" required>
             <input type="submit" value="Save">
         </form>
         <?php
@@ -116,10 +129,10 @@ switch ($_GET['stage']) {
         $name = filter_var($_POST['login'], FILTER_SANITIZE_STRING);
         $pw = filter_var($_POST['pw'], FILTER_SANITIZE_STRING);
         $hashedpw = password_hash($pw, PASSWORD_DEFAULT);
-
+        //Adds admin user to the database
         include_once 'connection.php';
         $sql = "INSERT INTO logins (login, pwhash, status)
-                VALUES ({$name}, {$hashedpw}, 1);";
+                VALUES ('{$name}', '{$hashedpw}', '1');";
         $result = mysqli_query($db, $sql);
 
         if (!$result) { //Checks that details were saved properly
@@ -127,10 +140,10 @@ switch ($_GET['stage']) {
             echo "<a href='setup.php?stage=4'>Try again...</a>";
         } else {
             echo "Details saved; you will use them whenever you login to ASDF. <br/>
-                 Now many people are on your development team (not including you)?";
+                 How many people are on your development team (not including you)?";
             ?>
             <form method="post" action="setup.php?stage=6">
-                <input id="team" type="number" required min="0" max="50">
+                <input name="team" type="number" required min="0" max="50" autofocus>
                 <input type="submit" value="Save">
             </form>
         <?php
@@ -147,29 +160,54 @@ switch ($_GET['stage']) {
           tick the box for that account.";
         echo "<form method='post' action='setup.php?stage=7'>";
         for ($i = 0; $i < $team; $i++) {
-            echo "<input id='{$i}' type='text' required placeholder='Login'>";
-            echo "Admin y/n <input id='admin{$i}' type='checkbox'>";
+            echo "<input name='name{$i}' type='text' required placeholder='Login'>";
+            echo "Make Admin y/n <input name='admin{$i}' type='checkbox' value='TRUE'>";
         }
-        echo "</form>";
+        echo "<input type='hidden' name='team' value={$team}>";
+        echo "<input type='submit' value='Save'></form>";
         echo "Note: Administrators will be able to change development priorities, reset user passwords, 
         and delete all system data if they want to.";
-
-
-
         break;
     case 7:
+        if(isset($_POST['team'])) { //Checks if more team members were added
+            include_once 'connection.php';
+            for ($i = 0; $i < $_POST['team']; $i++) { //Adds each one as a login account
+                $name = $_POST['name'.$i];
+                if(isset($_POST['admin'.$i])) {
+                    $admin = 1;
+                } else {
+                    $admin = 0;
+                }
+                $login = filter_var($name, FILTER_SANITIZE_STRING);
 
-
-
+                $sql = "INSERT INTO logins (login, status)
+                VALUES ('{$name}', '{$admin}');";
+                $result = mysqli_query($db, $sql);
+                if (!$result) {  //Could not create Database or Users Table
+                    echo "Error adding user: {$name} <br/>";
+                    echo $sql;
+                    print_r(mysqli_errno($db));
+                }
+            }
+        }
+        echo "We're nearly done with the setup.  All that's left now is to enter some details about your project.
+            This will be used as a reference for the team, to help keep them on-track.";
+        echo "<a href='setup.php?stage=8'>Last step...</a>";
         break;
     case 8:
-
-
-
+        ?>
+        Please provide some details about your project, to be shared amongst the team.  As an example you may wish to
+        provide a mission statement, target users, links to design documents and so on.
+        <form method="post" action="setup.php?stage=9">
+            <input type="text" name="project Title" placeholder="Project Title" required>
+            <input type="text" name="details" placeholder="About the project" required>
+            <input type="url" name="links" placeholder="Web links">
+            <input type="submit" value="Save">
+        </form>
+        <?php
         break;
-
     default:
-
+        echo "<script type='text/javascript'> location = '../index.php'</script>";
 
 }
 
