@@ -60,8 +60,8 @@ if (isset($_POST['story']) AND ($_SESSION['status'] == 1)) {
                               cols="115"></textarea><br/>
                     <label for="priority">(Optional) Select what position to insert into the PBL</label>
                     <input type="number" name="priority" min="1" max="200">
-                    <input type="submit" value="Add to Product Backlog">
-                    Note:
+                    <input type="submit" value="Add to Product Backlog"><br/>
+                    Note: new PBI's will often have duplicated priorities, this will resolve when the priorities are next adjusted.
                 </fieldset>
             </form>
         </div>
