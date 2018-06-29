@@ -32,10 +32,10 @@
     ?>
         Please sign-in to ASDF:
     </div>
-    <div id="login">
+    <div id="login_panel">
         <form method="post" action="Scripts/login.php">
-            <input type="text" name="login" placeholder="Username" required autofocus>
-            <input type="password" name="pw" placeholder="Password" required>
+            <input type="text" name="user" placeholder="Username" required autofocus>
+            <input type="password" name="pw" placeholder="Password">
             <input type="submit" name="login" value="Login">
         </form><br/>
     </div>

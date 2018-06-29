@@ -1,4 +1,4 @@
-<?php  //Created by ASDF at 2018/06/28 01:40:11pm 
+<?php  //Created by ASDF at 2018/06/29 11:15:01am 
 DEFINE ('DB_USER', 'root'); 
 DEFINE ('DB_PSWD', ''); 
 DEFINE ('DB_HOST', 'localhost'); 

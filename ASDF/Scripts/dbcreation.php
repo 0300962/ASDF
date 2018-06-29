@@ -8,7 +8,6 @@
 
 
 include_once 'connection.php';
-echo "Beginning step 1\n\n";
 //Creates the database
 $sql = "CREATE DATABASE IF NOT EXISTS asdf;";
 $result = mysqli_query($db, $sql);
@@ -32,7 +31,6 @@ if (!$result) {  //Could not create Database or Users Table
     print_r(mysqli_errno($db));
 }
 
-echo "Beginning step 2\n\n";
 $sql = "CREATE TABLE logins (
             login varchar(128) NOT NULL,
             userID int NOT NULL AUTO_INCREMENT UNIQUE,            
@@ -48,7 +46,6 @@ if (!$result) {  //Could not create Logins table
     print_r(mysqli_errno($db));
 }
 
-echo "Beginning step 3\n\n";
 $sql = "CREATE TABLE pbis (
             pbiNo int NOT NULL AUTO_INCREMENT,
             userStory varchar(300) NOT NULL,
@@ -64,7 +61,6 @@ if (!$result) {  //Could not create Project Backlog Items table
     print_r(mysqli_errno($db));
 }
 
-echo "Beginning step 4\n\n";
 $sql = "CREATE TABLE sbis (
             sbiNo int NOT NULL AUTO_INCREMENT,
             pbiNo int NOT NULL,
@@ -82,7 +78,6 @@ if (!$result) {  //Could not create Sprint Backlog Items Table
     print_r(mysqli_errno($db));
 }
 
-echo "Beginning step 5\n\n";
 $sql = "CREATE TABLE sprints (
             sprintNo int NOT NULL AUTO_INCREMENT,
             startDate date NOT NULL,
@@ -98,7 +93,6 @@ if (!$result) {  //Could not create Sprint History table
     print_r(mysqli_errno($db));
 }
 
-echo "Beginning step 6\n\n";
 $sql = "CREATE TABLE chat (
             msgNo int NOT NULL AUTO_INCREMENT,
             sent datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -111,6 +105,20 @@ $sql = "CREATE TABLE chat (
 $result = mysqli_query($db, $sql);
 if (!$result) {  //Could not create Chat history Table
     echo "Step 6 Failed";
+    print_r(mysqli_errno($db));
+}
+
+$sql = "CREATE TABLE project (
+            title varchar(30) NOT NULL,
+            details varchar(500) NULL,
+            links varchar(300) NULL,
+            revision varchar(16) NULL,
+            
+            CONSTRAINT PK_Project PRIMARY KEY (title)
+        );";
+$result = mysqli_query($db, $sql);
+if (!$result) {  //Could not create Project details Table
+    echo "Step 7 Failed";
     print_r(mysqli_errno($db));
 }
             

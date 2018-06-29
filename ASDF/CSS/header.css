@@ -6,7 +6,7 @@ nav {
     width: 100%;
     display: flex;
     flex-direction: row;
-    background-color: brown;
+    background-color: #b92f2f;
     color: white;
 }
 
@@ -21,16 +21,16 @@ a:link, a:visited {
     color: white;
 }
 a:hover {
-    color: brown;
-    background-color: aquamarine;
+    /*color: #b92f2f;*/
+    background-color: #2fb9b9;
 }
 
 .link:hover {
-    background-color: aquamarine;
-}
+    background-color: #2fb9b9;
+}/*
 .link:hover a:link {
-    color: brown;
-}
+    color: #b92f2f;
+}*/
 
 
 /*-------  Drop-down menu controls -----------*/
@@ -39,7 +39,7 @@ a:hover {
     display: inline-block;
 }
 .menubutton {
-    background-color: brown;
+    background-color: #b92f2f;
     color: white;
     border: none;
     text-align: justify;
@@ -47,8 +47,8 @@ a:hover {
 .menu-options {
     display: none;
     position: absolute;
-    background-color: brown;
-    box-shadow: 5px 10px 10px 0 rgba(0,0,0,0.5) ;
+    background-color: #b92f2f;
+    box-shadow: 10px 10px 10px 0 rgba(0,0,0,0.5) ;
 }
 .menu-options a{
     display: block;
@@ -57,10 +57,12 @@ a:hover {
 }
 .drop-down:hover {
     margin: 0;
-    border: 1px solid aquamarine;
+    border: 1px solid #2fb9b9;
 }
-.drop-down:hover .menu-options {
+.drop-down:hover .menu-options{
     display: block;
+    border: 1px solid #2fb9b9;
+    border-radius: 5px;
 }
 /*----------------------------------------*/
 
@@ -85,4 +87,15 @@ a:hover {
 
 #banner {
     background-color: white;
+}
+
+#banner > a:link {
+    background-color: #b92f2f;
+    padding: 10px;
+    display: block;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    text-align: center;
 }

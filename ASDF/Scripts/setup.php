@@ -54,6 +54,7 @@ function databaseConnection($name, $pw, $dbhost, $status)
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../CSS/header.css">
+
 </head>
 <body>
 <nav>
@@ -183,8 +184,8 @@ switch ($_GET['stage']) {
                 $sql = "INSERT INTO logins (login, status)
                 VALUES ('{$name}', '{$admin}');";
                 $result = mysqli_query($db, $sql);
-                if (!$result) {  //Could not create Database or Users Table
-                    echo "Error adding user: {$name} <br/>";
+                if (!$result) {  //Could not add user account
+                    echo "Error adding user: {$name} <br/> Possible duplicate username?";
                     echo $sql;
                     print_r(mysqli_errno($db));
                 }
@@ -195,20 +196,49 @@ switch ($_GET['stage']) {
         echo "<a href='setup.php?stage=8'>Last step...</a>";
         break;
     case 8:
+        //Gets project details to share with the team
         ?>
         Please provide some details about your project, to be shared amongst the team.  As an example you may wish to
-        provide a mission statement, target users, links to design documents and so on.
+        provide a mission statement, target users, links to design documents, and so on.
         <form method="post" action="setup.php?stage=9">
-            <input type="text" name="project Title" placeholder="Project Title" required>
-            <input type="text" name="details" placeholder="About the project" required>
-            <input type="url" name="links" placeholder="Web links">
+            <input type="text" name="projectTitle" placeholder="Project Title" required maxlength="30">
+            <input type="text" name="details" placeholder="About the project" maxlength="500">
+            <input type="url" name="links" placeholder="Web links" maxlength="300">
             <input type="submit" value="Save">
         </form>
         <?php
         break;
+    case 9:
+        //Checks user inputs
+        $title = filter_var($_POST['projectTitle'], FILTER_SANITIZE_STRING);
+        if (isset($_POST['details'])) {
+            $details = filter_var($_POST['details'], FILTER_SANITIZE_STRING);
+        } else {
+            $details = '';
+        }
+        if (isset($_POST['links'])) {
+            $url = filter_var($_POST['links'], FILTER_SANITIZE_URL);
+        } else {
+            $url = '';
+        }
+        include_once 'connection.php';
+        $sql = "INSERT INTO project (title, details, links)
+        VALUES ('{$title}', '{$details}', '{$url}');";
+        $result = mysqli_query($db, $sql);
+        if (!$result) {  //Could not add Project details
+            echo "Error adding project details.<br/>";
+            echo $sql;
+            print_r(mysqli_errno($db));
+        }
+
+        echo "Setup mode is 99.5% complete!  You can now ask your users to login with the usernames
+        you configured earlier.  Whenever a user (including you) logs in for the first time, ASDF 
+        will ask them to complete their profile information- this includes setting a password for
+        their accounts for your users.";
+        echo "<a href='../index.php'>Let's get started...</a>";
+        break;
     default:
         echo "<script type='text/javascript'> location = '../index.php'</script>";
-
 }
 
 ?>
