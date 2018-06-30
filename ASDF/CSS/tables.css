@@ -26,6 +26,8 @@
     border-collapse: collapse;
     table-layout: auto;
     overflow-y: auto;
+    width: 90%;
+    min-width: 900px;
     margin-left: auto;
     margin-right: auto;
     background-color: white;
@@ -42,7 +44,7 @@ tr {
 
 td {
     padding: 10px;
-    width: 30%;
+    /*width: 30%;*/
 }
 
 td a {
@@ -65,4 +67,10 @@ form {
 }
 fieldset {
     padding: 20px;
+}
+.completed {
+    background-color: lightgrey;
+}
+.controls {
+    width: 230px;
 }

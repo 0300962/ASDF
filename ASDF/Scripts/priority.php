@@ -98,6 +98,6 @@ foreach ($list as $pbi_no => $new_priority) {
     $sql = "UPDATE pbis SET priority = $new_priority WHERE pbiNo = $pbi_no";
     $result = mysqli_query($db, $sql);
 }
-
+include 'signaller.php';
 header('Location: ../pbl.php');
 ?>

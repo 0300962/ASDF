@@ -11,38 +11,50 @@ include 'header.php';
 if (isset($_POST['story']) AND ($_SESSION['status'] == 1)) {
     $story = filter_var($_POST['story'], FILTER_SANITIZE_STRING);
     $criteria = filter_var($_POST['criteria'], FILTER_SANITIZE_STRING);
-    if (isset($_POST['priority'])) {
+
+    //Checks for a selected priority
+    if ($_POST['priority'] > 0) {
         $p = filter_var($_POST['priority'], FILTER_SANITIZE_NUMBER_INT);
-    } else {
-        $p = 100;
-    }
-    //Adds the new PBI to the database
-    $sql = "INSERT INTO pbis (userStory, acceptance, priority)
+        $sql = "INSERT INTO pbis (userStory, acceptance, priority)
     VALUES ('{$story}', '{$criteria}', '{$p}' );";
+    } else {
+        $sql = "INSERT INTO pbis (userStory, acceptance)
+    VALUES ('{$story}', '{$criteria}');";
+    }
+    echo $sql;
+    //Adds the new PBI to the database
     $result = mysqli_query($db, $sql);
     if(!$result) {
         echo "Error - could not add PBI to database.";
         print_r(mysqli_errno($db));
+        echo $sql;
     }
-}
 
+    include 'Scripts/signaller.php';
+}
 ?>
+<script> //AJAX function to refresh the Backlog table, optionally showing completed PBIs
+    function update(hidecompleted) {
+        var ajax = new XMLHttpRequest();
+        ajax.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("backlog").innerHTML = this.responseText;
+            }
+        };
+        //Checks whether to show or hide completed tasks
+        if (hidecompleted) { //Default is to hide completed PBIs
+            ajax.open("GET", "Scripts/backlogtable.php", true);
+        } else {
+            ajax.open("GET", "Scripts/backlogtable.php?false", true);
+        }
+        ajax.send();
+    }
+</script>
+
 <link rel="stylesheet" href="CSS/tables.css">
 <div class="table_cont">
     <table id="backlog">
-        <tr>
-            <th>User Story</th><th>Acceptance Criteria</th><th>Priority</th>
-        </tr>
-        <?php
-        $sql = "SELECT * FROM pbis
-                ORDER BY priority ASC";
-        $result = mysqli_query($db, $sql);
-
-        while($row = mysqli_fetch_array($result)) {
-            echo "<tr><td>{$row['userStory']}</td><td>{$row['acceptance']}</td><td>Current Priority:{$row['priority']}\n\n
-                    <a href='Scripts/priority.php?up={$row['pbiNo']}'>Move Up</a><a href='Scripts/priority.php?down={$row['pbiNo']}'>Move Down</a></td>";
-        }
-        ?>
+        <?php include 'Scripts/backlogtable.php';?>
     </table>
 </div>
 <?php
@@ -68,5 +80,22 @@ if (isset($_POST['story']) AND ($_SESSION['status'] == 1)) {
         <?php
     }
 ?>
+<script type="text/javascript">
+    var version;
+    if(!!window.EventSource) {
+        //Opens the version-tracking script
+        var msgSource = new EventSource('Scripts/version.php');
+        msgSource.onopen = function() {
+            console.log("Connected");
+        };
 
-
+        msgSource.onmessage = function(event) {
+            var newversion = event.data;
+            if (newversion != version) { //Checks whether page displayed is the latest version
+                version = newversion;
+                console.log('Update received');
+                update(true);  //Updates the backlog if there's a change of version detected
+            }
+        };
+    }
+</script>

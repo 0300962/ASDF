@@ -19,7 +19,6 @@ include_once "Scripts/connection.php";
 /* Debug variables! */
 $_SESSION['status'] = 1;
 $_SESSION['name'] = 'tester';
-
 ?>
 
 <!DOCTYPE HTML>
@@ -87,7 +86,6 @@ $_SESSION['name'] = 'tester';
             $now = date("Y/m/d");
             //Some way to figure out days left?
             $days = 0;
-
             echo "<div id='sprint_info'>Sprint in progress: {$days} days left!</div>";
         }
 
