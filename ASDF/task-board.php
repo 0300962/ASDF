@@ -9,13 +9,21 @@ include 'header.php';
 
 ?>
 <link rel="stylesheet" href="CSS/taskboard.css">
-<div id="container">
+<div id="SBI_container">
     <div id="user_list">
-        <div class="user_box">ABCD</div>
-        <div class="user_box">EFG</div>
+        <?php  //Retrieves list of User accounts from the database
+        $sql = "SELECT initials, colour
+                FROM users";
+        $result = mysqli_query($db, $sql);
+        while($row = mysqli_fetch_array($result)) {
+            //Adds a button for each user to the drop-down menu
+            echo "<div class='user_box' style='background-color:{$row['colour']}'>{$row['initials']}</div>";
+        }
+        ?>
     </div>
     <div id="task_board">
         <div class="pbi" id="123">
+            <div>PBI Title</div>
             <div class="sbi">
                 <div class="not_started"></div>
             </div>
@@ -30,6 +38,7 @@ include 'header.php';
             </div>
         </div>
         <div class="pbi" id="456">
+            <div>PBI Title</div>
             <div class="sbi">
                 <div class="not_started"></div>
             </div>

@@ -49,6 +49,7 @@ a:hover {
     position: absolute;
     background-color: #b92f2f;
     box-shadow: 10px 10px 10px 0 rgba(0,0,0,0.5) ;
+    z-index: 100;
 }
 .menu-options a{
     display: block;
