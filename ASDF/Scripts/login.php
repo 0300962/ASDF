@@ -38,7 +38,7 @@ if (isset($_REQUEST['login'])) { //Checks that user was trying to login
         $row = mysqli_fetch_assoc($result);
 
         //Checks for a new User and directs them to fill in their details
-        if ($row['name'] = NULL) {
+        if ($row['name'] == NULL) {
             //Temp details
             $_SESSION['name'] = 'New User';
             $_SESSION['initials'] = 'ABCD';
@@ -54,7 +54,9 @@ if (isset($_REQUEST['login'])) { //Checks that user was trying to login
     } else {
         header('Location: ../index.php?error');
     }
-} else { //User shouldn't be here!
+} else { //Logout of everything
+    session_unset();
+    session_destroy();
     header('Location: ../index.php');
     exit;
 }

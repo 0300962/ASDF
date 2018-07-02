@@ -27,11 +27,7 @@ a:hover {
 
 .link:hover {
     background-color: #2fb9b9;
-}/*
-.link:hover a:link {
-    color: #b92f2f;
-}*/
-
+}
 
 /*-------  Drop-down menu controls -----------*/
 .drop-down {
@@ -54,7 +50,7 @@ a:hover {
 .menu-options a{
     display: block;
     padding: 18px;
-    min-width: 150px;
+    min-width: 120px;
 }
 .drop-down:hover {
     margin: 0;
@@ -75,6 +71,7 @@ a:hover {
 
 #greeting {
     position: absolute;
+    top: 10px;
     right: 2%;
 }
 
@@ -99,4 +96,20 @@ a:hover {
     margin-right: auto;
     border-radius: 5px;
     text-align: center;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    background: #e3e8e6;
+    border-radius: 5px;
+    /*border: 1px solid #b63b3b;*/
+}
+::-webkit-scrollbar-thumb{
+    background: #7c2020;
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #2fb9b9;
 }

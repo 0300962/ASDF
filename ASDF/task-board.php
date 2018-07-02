@@ -19,11 +19,12 @@ include 'header.php';
         ajax.open("GET", "Scripts/taskboard.php", true);
         ajax.send();
     }
-
 </script>
+
 
 <div id="SBI_container">
     <div id="user_list">
+        User List
         <?php  //Retrieves list of User accounts from the database
         $sql = "SELECT initials, colour
                 FROM users";
@@ -39,6 +40,7 @@ include 'header.php';
             include 'Scripts/taskboard.php';
         ?>
     </div>
+
 
 </div>
 <script type="text/javascript">

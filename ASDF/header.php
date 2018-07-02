@@ -9,16 +9,13 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-/*if (!$_SESSION['logged-in']) {
+if (!$_SESSION['logged-in']) {
     header('Location: index.php');
     exit;
-}*/
+}
 
 include_once "Scripts/connection.php";
 
-/* Debug variables! */
-$_SESSION['status'] = 1;
-$_SESSION['name'] = 'tester';
 ?>
 
 <!DOCTYPE HTML>
@@ -70,6 +67,8 @@ $_SESSION['name'] = 'tester';
             </div>
         </div>
 
+        <div class="link"><a href="chat.php">Chat</a></div>
+
         <?php
         if ($_SESSION['status'] == '1') {  // Only shown to Admin users
             echo "<div class='link'><a href='admin.php'>Admin</a></div>";
@@ -89,10 +88,8 @@ $_SESSION['name'] = 'tester';
             echo "<div id='sprint_info'>Sprint in progress: {$days} days left!</div>";
         }
 
-        echo "<div id='greeting'>Welcome {$_SESSION['name']}</div>";
+        echo "<div class='drop-down' id='greeting'>";
+        echo "<button class='menubutton'>Welcome {$_SESSION['name']}</button>";
+        echo "<div class='menu-options'><a href='Scripts/login.php'>Logout</a></div>";
         ?>
     </nav>
-
-
-
-

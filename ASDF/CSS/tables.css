@@ -7,20 +7,6 @@
     margin-right: auto;
     color: black;
 }
-::-webkit-scrollbar {
-    width: 12px;
-}
-::-webkit-scrollbar-track {
-    background: #e3e8e6;
-    /*border: 1px solid #b63b3b;*/
-}
-::-webkit-scrollbar-thumb{
-    background: #7c2020;
-    border-radius: 5px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: #2fb9b9;
-}
 
 #backlog {
     border-collapse: collapse;

@@ -5,6 +5,15 @@
  * Date: 02-Jul-18
  * Time: 11:44 AM
  */
+?>
+<div id="titles">
+    <div>Not Started</div>
+    <div>In Progress</div>
+    <div>Testing</div>
+    <div>Done</div>
+</div>
+<?php
+
 include_once 'connection.php';
 
 function getColour ($user, $db) {
@@ -25,10 +34,12 @@ $currentPBI = 0; //Used to keep track of the PBIs
 
 while ($row = mysqli_fetch_array($result)) {
     if ($currentPBI == 0) {                         //First PBI only
-        echo "<div class='pbi'><div>PBI No {$row['pbiNo']}</div>";
+        echo "<div class='pbi'><div class='drop-down'><button class='menubutton'>PBI No {$row['pbiNo']}</button><div class='menu-options'>User 
+                Story:<br/>{$row['userStory']}<br/><br/>Acceptance Criteria:<br/>{$row['acceptance']}</div></div>";
     } else if ($row['pbiNo'] != $currentPBI) {      //Checks for a new PBI
         echo "</div>";                              //Closes previous PBI
-        echo "<div class='pbi'><div>PBI No {$row['pbiNo']}</div>";
+        echo "<div class='pbi'><div class='drop-down'><button class='menubutton'>PBI No {$row['pbiNo']}</button><div class='menu-options'>User 
+                Story:<br/>{$row['userStory']}<br/><br/>Acceptance Criteria:<br/>{$row['acceptance']}</div></div>";
     }
     echo "<div class='sbi' id='sbi{$row['sbiNo']}'>"; //Starts the SBI row
     //Checks the status of the SBI to display in the right column
