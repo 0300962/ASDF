@@ -6,9 +6,22 @@
  * Time: 12:56
  */
 include 'header.php';
-
 ?>
 <link rel="stylesheet" href="CSS/taskboard.css">
+<script>
+    function update(sbi) {  //AJAX function to update the task board
+        var ajax = new XMLHttpRequest();
+        ajax.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("task_board").innerHTML = this.responseText;
+            }
+        };
+        ajax.open("GET", "Scripts/taskboard.php", true);
+        ajax.send();
+    }
+
+</script>
+
 <div id="SBI_container">
     <div id="user_list">
         <?php  //Retrieves list of User accounts from the database
@@ -22,36 +35,28 @@ include 'header.php';
         ?>
     </div>
     <div id="task_board">
-        <div class="pbi" id="123">
-            <div>PBI Title</div>
-            <div class="sbi">
-                <div class="not_started"></div>
-            </div>
-            <div class="sbi">
-                <div class="in_progress"></div>
-            </div>
-            <div class="sbi">
-                <div class="testing"></div>
-            </div>
-            <div class="sbi">
-                <div class="done"></div>
-            </div>
-        </div>
-        <div class="pbi" id="456">
-            <div>PBI Title</div>
-            <div class="sbi">
-                <div class="not_started"></div>
-            </div>
-            <div class="sbi">
-                <div class="in_progress"></div>
-            </div>
-            <div class="sbi">
-                <div class="testing"></div>
-            </div>
-            <div class="sbi">
-                <div class="done"></div>
-            </div>
-        </div>
-
+        <?php
+            include 'Scripts/taskboard.php';
+        ?>
     </div>
+
 </div>
+<script type="text/javascript">
+    var version;
+    if(!!window.EventSource) {
+        //Opens the version-tracking script
+        var msgSource = new EventSource('Scripts/version.php');
+        msgSource.onopen = function() {
+            console.log("Connected");
+        };
+
+        msgSource.onmessage = function(event) {
+            var newversion = event.data;
+            if (newversion != version) { //Checks whether page displayed is the latest version
+                version = newversion;
+                console.log('Update received');
+                update();  //Updates the backlog if there's a change of version detected
+            }
+        };
+    }
+</script>

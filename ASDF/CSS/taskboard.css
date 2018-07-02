@@ -51,7 +51,7 @@
     width: 99%;
     height: 112px;
     padding: 5px;
-    background-color: yellow;
+    background-color: lightsteelblue;
     margin-left: auto;
     margin-right: auto;
 }
@@ -62,7 +62,7 @@
     width: 24%;
     padding: 5px;
     margin: 5px;
-    background-color: pink;
+    background-color: grey;
 }
 .in_progress {
     position: relative;
@@ -71,7 +71,6 @@
     width: 24%;
     padding: 5px;
     margin: 5px;
-    background-color: pink;
 }
 .testing {
     position: relative;
@@ -80,7 +79,6 @@
     width: 24%;
     padding: 5px;
     margin: 5px;
-    background-color: pink;
 }
 .done {
     position: relative;
@@ -89,7 +87,6 @@
     width: 24%;
     padding: 5px;
     margin: 5px;
-    background-color: pink;
 }
 
 @media (max-width: 1400px) {

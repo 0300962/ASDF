@@ -21,7 +21,6 @@ if (isset($_POST['story']) AND ($_SESSION['status'] == 1)) {
         $sql = "INSERT INTO pbis (userStory, acceptance)
     VALUES ('{$story}', '{$criteria}');";
     }
-    echo $sql;
     //Adds the new PBI to the database
     $result = mysqli_query($db, $sql);
     if(!$result) {

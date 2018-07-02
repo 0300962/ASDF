@@ -68,6 +68,7 @@ $sql = "CREATE TABLE sbis (
             inProgress varchar(16) NULL,
             testing varchar(16) NULL,
             done varchar(16) NULL,
+            effort int(2) NULL,
             
             CONSTRAINT PK_SBIs PRIMARY KEY (sbiNo),
             CONSTRAINT FK_SBIs_PBIs FOREIGN KEY (pbiNo) REFERENCES pbis(pbiNo) ON DELETE CASCADE
