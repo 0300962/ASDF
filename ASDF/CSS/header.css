@@ -1,5 +1,7 @@
 body {
     background-color: azure;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9em;
 }
 
 nav {
@@ -39,6 +41,7 @@ a:hover {
     color: white;
     border: none;
     text-align: justify;
+    font-size: 0.9em;
 }
 .menu-options {
     display: none;

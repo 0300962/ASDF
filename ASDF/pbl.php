@@ -59,21 +59,17 @@ if (isset($_POST['story']) AND ($_SESSION['status'] == 1)) {
 <?php
     if ($_SESSION['status'] == 1) {
         ?>
-        <div>
+        <div id="add_pbi">Add a new PBI - Note: new PBI's will often have duplicated priorities, this will resolve when the priorities are next adjusted.<br/>
             <form method="post" action="pbl.php">
-                <fieldset>
-                    <legend>Add a new PBI</legend>
-                    <label for="story">User Story</label><br/>
-                    <textarea name="story" placeholder="Enter User Story" required maxlength="300" rows="4"
-                              cols="115"></textarea><br/>
-                    <label for="criteria">Acceptance Criteria</label><br/>
-                    <textarea name="criteria" placeholder="Enter acceptance criteria" required maxlength="300" rows="4"
-                              cols="115"></textarea><br/>
-                    <label for="priority">(Optional) Select what position to insert into the PBL</label>
-                    <input type="number" name="priority" min="1" max="200">
-                    <input type="submit" value="Add to Product Backlog"><br/>
-                    Note: new PBI's will often have duplicated priorities, this will resolve when the priorities are next adjusted.
-                </fieldset>
+                <label for="story">User Story</label><br/>
+                <textarea name="story" placeholder="Enter User Story" required maxlength="300" rows="4"
+                          cols="90"></textarea><br/><br/>
+                <label for="criteria">Acceptance Criteria</label><br/>
+                <textarea name="criteria" placeholder="Enter acceptance criteria" required maxlength="300" rows="4"
+                          cols="90"></textarea><br/>
+                <label for="priority">(Optional) Select what position to insert into the PBL</label>
+                <input type="number" name="priority" min="1" max="200">
+                <input type="submit" value="Add to Product Backlog">
             </form>
         </div>
         <?php
