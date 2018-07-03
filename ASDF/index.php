@@ -23,27 +23,32 @@
     </div>
 </nav>
 
-<div id="container">
-    <div id="banner">
+<div id="login_container">
+
     <?php
     //Checks whether the database has been configured yet; if so, presents the Login screen
     if (file_exists('Scripts/connection.php')) {
         if (isset($_GET['error'])) {
-                echo "Incorrect User Name or Password!<br/>";
+                echo "<div id='login_banner'>Incorrect User Name or Password!<br/></div>";
             }
     ?>
-        Please sign-in to ASDF:
-    </div>
     <div id="login_panel">
+        Please sign-in to ASDF:<br/>
         <form method="post" action="Scripts/login.php">
             <input type="text" name="user" placeholder="Username" required autofocus>
             <input type="password" name="pw" placeholder="Password">
             <input type="submit" name="login" value="Login">
-        </form><br/>
+        </form><br/>NOTE: This system uses cookies to control access and permissions.
     </div>
     <div id="disclaimers">
-        This system uses cookies to control access and permissions.<br/><br/>
-        This system uses elements from xxx.inc
+        ASDF - the Agile Software Development Framework is a modern web application designed to help small development teams
+        adopt an Agile methodology for their next project.  It provides the tools and guidance to help your team work in a
+        Scrum-like process, even if you're spread around the world.  ASDF is self-hosted, so your data stays with you.<br/>
+        <br/>
+        More information, installation instructions and the source code for ASDF is available from <a href="https://github.com/0300962/ASDF">GitHub</a><br/>
+        ASDF is free for all users and is offered under the <a href="https://github.com/0300962/ASDF/blob/master/LICENSE">GNU General Public License V3.0</a> without
+        warranty or liability.  Some ASDF functions utilise the <a href="https://developers.google.com/chart/">Google Charts</a> API.<br/>
+        System Font is Roboto Sans-Serif, courtesy of <a href="https://fonts.google.com/">Google Fonts</a><br/>
     </div>
 </div>
 </body>

@@ -21,7 +21,6 @@ include 'header.php';
     }
 </script>
 
-
 <div id="SBI_container">
     <div id="user_list">
         <h4>User List</h4>

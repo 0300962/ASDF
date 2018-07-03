@@ -18,6 +18,12 @@ if (isset($_REQUEST['login'])) { //Checks that user was trying to login
     $sql = "SELECT * FROM logins WHERE login = '{$login}'";
     $result = mysqli_query($db, $sql);
     $row = mysqli_fetch_assoc($result);
+    if (mysqli_num_rows($result) != 1) {
+        session_unset();
+        session_destroy();
+        header('Location: ../index.php?error');
+        exit;
+    }
 
     //Checks for new users or a cleared password
     if(!isset($row['pwhash'])) {
