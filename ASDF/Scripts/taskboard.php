@@ -7,10 +7,10 @@
  */
 ?>
 <div id="titles">
-    <div>Not Started</div>
-    <div>In Progress</div>
-    <div>Testing</div>
-    <div>Done</div>
+    <div><h3>Not Started</h3></div>
+    <div><h3>In Progress</h3></div>
+    <div><h3>Testing</h3></div>
+    <div><h3>Done</h3></div>
 </div>
 <?php
 

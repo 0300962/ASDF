@@ -6,3 +6,8 @@
  * Time: 12:59
  */
 include 'header.php';
+?>
+    <script> //Sets the navbar link to show which page you're on
+        document.getElementById("adminLink").className += " active";
+    </script>
+<?php

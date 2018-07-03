@@ -23,8 +23,8 @@ include_once "Scripts/connection.php";
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./CSS/header.css">
-    <!-- Find a font -->
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <title>ASDF - Agile Software Development Framework</title>
 </head>
 
 <body>
@@ -49,7 +49,7 @@ include_once "Scripts/connection.php";
             </div>
         </div>
 
-        <div class="link"><a href="pbl.php">Backlog</a></div>
+        <div class="link" id="pblLink"><a href="pbl.php">Backlog</a></div>
 
         <div class="drop-down" id="performance">
             <button class="menubutton">Performance</button>
@@ -68,11 +68,11 @@ include_once "Scripts/connection.php";
             </div>
         </div>
 
-        <div class="link"><a href="chat.php">Chat</a></div>
+        <div class="link" id="chatLink"><a href="chat.php">Chat</a></div>
 
         <?php
         if ($_SESSION['status'] == '1') {  // Only shown to Admin users
-            echo "<div class='link'><a href='admin.php'>Admin</a></div>";
+            echo "<div class='link' id='adminLink'><a href='admin.php'>Admin</a></div>";
         }
 
         //Checks for a Sprint in-progress

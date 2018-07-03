@@ -6,6 +6,11 @@
  * Time: 12:57
  */
 include 'header.php';
+?>
+<script> //Sets the navbar link to show which page you're on
+    document.getElementById("pblLink").className += " active";
+</script>
+<?php
 
 //Checks for a new PBI, from an admin user
 if (isset($_POST['story']) AND ($_SESSION['status'] == 1)) {
@@ -57,19 +62,19 @@ if (isset($_POST['story']) AND ($_SESSION['status'] == 1)) {
     </table>
 </div>
 <?php
-    if ($_SESSION['status'] == 1) {
+    if (($_SESSION['status'] == 1) && (!$liveSprint)) {
         ?>
         <div id="add_pbi">Add a new PBI - Note: new PBI's will often have duplicated priorities, this will resolve when the priorities are next adjusted.<br/>
             <form method="post" action="pbl.php">
-                <label for="story">User Story</label><br/>
+                <br/><label for="story">User Story</label><br/>
                 <textarea name="story" placeholder="Enter User Story" required maxlength="300" rows="4"
-                          cols="90"></textarea><br/><br/>
+                          cols="60"></textarea><br/><br/>
                 <label for="criteria">Acceptance Criteria</label><br/>
                 <textarea name="criteria" placeholder="Enter acceptance criteria" required maxlength="300" rows="4"
-                          cols="90"></textarea><br/>
+                          cols="60"></textarea><br/>
                 <label for="priority">(Optional) Select what position to insert into the PBL</label>
                 <input type="number" name="priority" min="1" max="200">
-                <input type="submit" value="Add to Product Backlog">
+                <input type="submit" value="Add to Backlog">
             </form>
         </div>
         <?php

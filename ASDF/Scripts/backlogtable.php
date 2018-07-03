@@ -5,11 +5,24 @@
  * Date: 30-Jun-18
  * Time: 10:19 AM
  */
-?>
 
-<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
     include_once 'connection.php';
-    if (isset($_GET['false'])) {  //Checks whether to hide completed PBIs
+
+    //Checks for a Sprint in-progress
+    $sql = "SELECT * FROM sprints
+                    WHERE backlogTotal IS NULL";
+    $result = mysqli_query($db, $sql);
+    if ((mysqli_num_rows($result) > 0) OR ($_SESSION['status'] != '1')) {  // Checks for live Sprint or Non-admin user
+        $liveSprint = TRUE;
+    } else {
+        $liveSprint = FALSE;
+    }
+
+    //Checks whether to hide completed PBIs
+    if (isset($_GET['false'])) {
         $sql = "SELECT * FROM pbis
             ORDER BY completed, priority ASC";
         $button = true;
@@ -36,7 +49,12 @@
             $done = '';
         }
         //Populates the table row for this PBI
-        echo "<tr {$done}><td>{$row['userStory']}</td><td>{$row['acceptance']}</td><td class='controls'>Current Priority:{$row['priority']}<br/>
-                <a href='Scripts/priority.php?up={$row['pbiNo']}'>Move Up</a><a href='Scripts/priority.php?down={$row['pbiNo']}'>Move Down</a></td>";
+        echo "<tr {$done}><td>{$row['userStory']}</td><td>{$row['acceptance']}</td><td class='controls'>Current Priority:{$row['priority']}<br/>";
+        //Adds Up and Down buttons if there's not a Sprint in progress
+        if (!$liveSprint){
+            echo "<a href='Scripts/priority.php?up={$row['pbiNo']}'>Move Up</a><a href='Scripts/priority.php?down={$row['pbiNo']}'>Move Down</a></td>";
+        } else {
+            echo "</td>";
+        }
     }
 ?>

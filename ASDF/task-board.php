@@ -24,7 +24,7 @@ include 'header.php';
 
 <div id="SBI_container">
     <div id="user_list">
-        User List
+        <h4>User List</h4>
         <?php  //Retrieves list of User accounts from the database
         $sql = "SELECT initials, colour
                 FROM users";

@@ -1,6 +1,6 @@
 .table_cont {
     width: 90%;
-    height: 800px;
+    height: 715px;
     overflow-y: auto;
     margin-top: 5px;
     margin-left: auto;
@@ -30,7 +30,7 @@ tr {
 
 td {
     padding: 10px;
-    /*width: 30%;*/
+    text-align: justify;
 }
 
 td a {
@@ -48,10 +48,11 @@ td a:hover {
 #add_pbi {
     border: 1px solid darkgrey;
     width: 90%;
+    min-width: 1070px;
     height: 140px;
     padding: 5px;
     position: absolute;
-    bottom: 10px;
+    bottom: 5px;
     left: 5%;
     margin-left: auto;
     margin-right: auto;
@@ -68,4 +69,13 @@ form {
 }
 .controls {
     width: 230px;
+}
+
+@media (max-width: 1150px) {
+    .table_cont {
+        height: 700px;
+    }
+    #add_pbi {
+        left:0;
+    }
 }

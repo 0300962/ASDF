@@ -30,6 +30,9 @@ a:hover {
 .link:hover {
     background-color: #2fb9b9;
 }
+.link.active {
+    background-color: #2fb9b9;
+}
 
 /*-------  Drop-down menu controls -----------*/
 .drop-down {
@@ -56,6 +59,10 @@ a:hover {
     min-width: 120px;
 }
 .drop-down:hover {
+    margin: 0;
+    border: 1px solid #2fb9b9;
+}
+.drop-down.active {
     margin: 0;
     border: 1px solid #2fb9b9;
 }
