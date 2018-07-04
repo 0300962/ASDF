@@ -28,7 +28,7 @@ if (isset($_REQUEST['login'])) { //Checks that user was trying to login
     //Checks for new users or a cleared password
     if(!isset($row['pwhash'])) {
         //Sends user to the edit function
-        header("Location: edit.php?account={$row['userID']}&profile={$row['userID']}");
+        header("Location: ../edit.php?profile={$row['userID']}&user={$row['userID']}");
         exit;
     }
 
@@ -48,13 +48,11 @@ if (isset($_REQUEST['login'])) { //Checks that user was trying to login
             //Temp details
             $_SESSION['name'] = 'New User';
             $_SESSION['initials'] = 'ABCD';
-            $_SESSION['colour'] = 'grey';
-            $editpage = "Location: edit.php?profile={$id}";
+            $editpage = "Location: ../edit.php?user={$id}";
             header($editpage);
         } else { //Existing user
             $_SESSION['name'] = $row['name'];
             $_SESSION['initials'] = $row['initials'];
-            $_SESSION['colour'] = $row['colour'];
             header("Location: ../task-board.php");
         }
     } else {
