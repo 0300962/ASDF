@@ -135,6 +135,21 @@
     background-color: #2fb9b9;
 }
 
+.edit {
+    position: relative;
+    left: -17px;
+    margin: 1px;
+    padding: 1px;
+}
+.edit a {
+    position: unset;
+    display: unset;
+    background-color: unset;
+}
+.edit a:hover {
+    background-color: unset;
+}
+
 @media (max-width: 1250px) {
     #container {
         width: 1100px;

@@ -48,7 +48,8 @@
         More information, installation instructions and the source code for ASDF is available from <a href="https://github.com/0300962/ASDF">GitHub</a><br/>
         ASDF is free for all users and is offered under the <a href="https://github.com/0300962/ASDF/blob/master/LICENSE">GNU General Public License V3.0</a> without
         warranty or liability.  Some ASDF functions utilise the <a href="https://developers.google.com/chart/">Google Charts</a> API.<br/>
-        System Font is Roboto Sans-Serif, courtesy of <a href="https://fonts.google.com/">Google Fonts</a>  Icons provided by xxx.<br/>
+        System Font is Roboto Sans-Serif, courtesy of <a href="https://fonts.google.com/">Google Fonts</a>
+        Icons provided by <a href="https://material.io/tools/icons/?style=outline">Google Icons</a><br/>
     </div>
 </div>
 </body>

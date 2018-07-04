@@ -34,6 +34,10 @@ a:hover {
     background-color: #2fb9b9;
 }
 
+.edit_button {
+    margin: 1px;
+    padding: 1px;
+}
 /*-------  Drop-down menu controls -----------*/
 .drop-down {
     position: relative;

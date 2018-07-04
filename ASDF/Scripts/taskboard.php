@@ -5,6 +5,9 @@
  * Date: 02-Jul-18
  * Time: 11:44 AM
  */
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
 <div id="titles">
     <div><h3>Not Started</h3></div>
@@ -42,6 +45,10 @@ while ($row = mysqli_fetch_array($result)) {
                 Story:<br/>{$row['userStory']}<br/><br/>Acceptance Criteria:<br/>{$row['acceptance']}</div></div>";
     }
     echo "<div class='sbi' id='sbi{$row['sbiNo']}'>"; //Starts the SBI row
+
+    if ($_SESSION['status'] == '1') { //Displays the Edit icon for Admin users
+        echo "<div class='edit'><a class='edit_button' href='edit.php?sbi={$row['sbiNo']}'><i class='material-icons'>settings</i></a></div>";
+    }
     //Checks the status of the SBI to display in the right column
     if ($row['inProgress'] == NULL) {  //Default state - SBI not started yet
         echo "<div class='not_started'>{$row['task']}<br/>Effort:{$row['effort']}<a href='Scripts/progress.php?sbi={$row['sbiNo']}'>Progress>></a></div>";

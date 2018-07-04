@@ -49,9 +49,10 @@ if (session_status() === PHP_SESSION_NONE) {
             $done = '';
         }
         //Populates the table row for this PBI
-        echo "<tr {$done}><td>{$row['userStory']}</td><td>{$row['acceptance']}</td><td class='controls'>Current Priority:{$row['priority']}<br/>";
+        echo "<tr {$done}><td>{$row['userStory']}</td><td>{$row['acceptance']}</td><td class='controls'>Current Priority:{$row['priority']}  ";
         //Adds Up and Down buttons if there's not a Sprint in progress
-        if (!$liveSprint){
+        if (!$liveSprint && ($_SESSION['status'] == '1')){
+            echo "<a class='edit_button' href='edit.php?pbi={$row['pbiNo']}'><i class='material-icons'>settings</i></a><br/>";
             echo "<a href='Scripts/priority.php?up={$row['pbiNo']}'>Move Up</a><a href='Scripts/priority.php?down={$row['pbiNo']}'>Move Down</a></td>";
         } else {
             echo "</td>";
