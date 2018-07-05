@@ -12,3 +12,4 @@ $result = mysqli_query($db, $sql);
 if (!$result) {
     echo "Error updating project revision";
 }
+?>

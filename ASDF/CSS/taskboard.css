@@ -46,7 +46,6 @@
     height: 830px;
     overflow-y: auto;
 }
-
 .pbi {
     display: block;
     width: 99%;
@@ -59,12 +58,11 @@
     background-color: lightsteelblue;
 }
 .sbi {
-    display: block;
-    width: 99%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
-
+/*--  SBI Categories --*/
 .not_started {
     position: relative;
     overflow-y: auto;
@@ -97,7 +95,7 @@
 }
 .done {
     position: relative;
-    left: 75%;
+    left: 74%;
     overflow-y: auto;
     width: 24%;
     padding: 5px;
@@ -105,6 +103,7 @@
     border: 1px solid darkgrey;
     border-radius: 5px;
 }
+/*--  /SBI Categories --*/
 .pbi .menubutton {
     padding: 10px;
     border-radius: 5px;
@@ -119,37 +118,45 @@
     text-align: justify;
     color: white;
 }
-
 .sbi a {
     background-color: #b92f2f;
-    padding: 5px;
-    margin: 10px;
+    padding: 3px;
+    margin-left: 5px;
+    margin-right: 5px;
     display: inline-block;
     border-radius: 5px;
-    position: absolute;
+    /*position: absolute;
     bottom: 0;
-    right:0;
+    right:0;*/
 }
-
 .sbi a:hover {
     background-color: #2fb9b9;
 }
-
-.edit {
+.centered {
+    text-align: center;
+}
+/*-- Edit Icons --*/
+i {
     position: relative;
-    left: -17px;
-    margin: 1px;
+    top: 2px;
+    left: -0.5px;
+}
+.edit {
     padding: 1px;
+    display: unset;
+    float: left;
 }
 .edit a {
+    padding: unset;
+    margin: unset;
     position: unset;
     display: unset;
-    background-color: unset;
+    float: left;
 }
 .edit a:hover {
-    background-color: unset;
+    /*background-color: unset;*/
 }
-
+/*-- /Edit icons --*/
 @media (max-width: 1250px) {
     #container {
         width: 1100px;

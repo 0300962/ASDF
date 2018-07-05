@@ -8,24 +8,25 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-?>
-<div id="titles">
-    <div><h3>Not Started</h3></div>
-    <div><h3>In Progress</h3></div>
-    <div><h3>Testing</h3></div>
-    <div><h3>Done</h3></div>
-</div>
-<?php
-
 include_once 'connection.php';
 
+//Checks the database for the user's chosen colour
 function getColour ($user, $db) {
     $sql2 = "SELECT colour FROM users WHERE userID = {$user}";
     $result2 = mysqli_query($db, $sql2);
     $row2 = mysqli_fetch_array($result2);
     return $row2['colour'];
 }
+?>
 
+<div id="titles">
+    <div><h3>Not Started</h3></div>
+    <div><h3>In Progress</h3></div>
+    <div><h3>Testing</h3></div>
+    <div><h3>Done</h3></div>
+</div>
+
+<?php
 //Retrieves all the SBIs, in order of PBI priority
 $sql = "SELECT S.sbiNo, S.task, S.inProgress, S.testing, S.done, S.effort, S.pbiNo, P.userStory, P.acceptance 
             FROM sbis S, pbis P
@@ -51,27 +52,35 @@ while ($row = mysqli_fetch_array($result)) {
     }
     //Checks the status of the SBI to display in the right column
     if ($row['inProgress'] == NULL) {  //Default state - SBI not started yet
-        echo "<div class='not_started'>{$row['task']}<br/>Effort:{$row['effort']}<a href='Scripts/progress.php?sbi={$row['sbiNo']}'>Progress>></a></div>";
+        echo "<div class='not_started'>{$row['task']}<br/><div class='centered'>Effort:{$row['effort']}<a href='Scripts/progress.php?progress={$row['sbiNo']}'>Progress ></a></div></div>";
     } else {
         if ($row['testing'] == NULL) { //SBI in-progress but not in Testing yet
             //Checks which user moved the task into In-progress
             $user = substr($row['inProgress'],0,2);
             $colour = getColour($user, $db);
             //Populates the SBI cell with the user's colour
-            echo "<div class='in_progress' style='background-color: {$colour}'>{$row['task']}<br/>Effort:{$row['effort']}<a href='Scripts/progress.php?sbi={$row['sbiNo']}'>Progress>></a></div>";
+            echo "<div class='in_progress' style='background-color: {$colour}'>{$row['task']}<br/><div class='centered'>
+                    <a href='Scripts/progress.php?regress={$row['sbiNo']}'>< Revert</a>
+                    Effort:{$row['effort']}
+                    <a href='Scripts/progress.php?progress={$row['sbiNo']}'>Progress ></a></div></div>";
         } else {
             if ($row['done'] == NULL) { //SBI in Testing but not Done yet
                 //Checks which user moved the task into Testing
                 $user = substr($row['testing'],0,2);
                 $colour = getColour($user, $db);
                 //Populates the SBI cell with the user's colour
-                echo "<div class='testing' style='background-color: {$colour}'>{$row['task']}<br/>Effort:{$row['effort']}<a href='Scripts/progress.php?sbi={$row['sbiNo']}'>Progress>></a></div>";
+                echo "<div class='testing' style='background-color: {$colour}'>{$row['task']}<br/><div class='centered'>
+                <a href='Scripts/progress.php?regress={$row['sbiNo']}'>< Revert</a>
+                Effort:{$row['effort']}
+                <a href='Scripts/progress.php?progress={$row['sbiNo']}'>Progress ></a></div></div>";
             } else { //SBI is Done
                 //Checks which user moved the task into Done
                 $user = substr($row['done'],0,2);
                 $colour = getColour($user, $db);
                 //Populates the SBI cell with the user's colour
-                echo "<div class='done' style='background-color: {$colour}'>{$row['task']}<br/>Effort:{$row['effort']}</div>";
+                echo "<div class='done' style='background-color: {$colour}'>{$row['task']}<br/><div class='centered'>
+                <a href='Scripts/progress.php?regress={$row['sbiNo']}'>< Revert</a>
+                Effort:{$row['effort']}</div></div>";
             }
         }
     }
