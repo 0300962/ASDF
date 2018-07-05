@@ -24,7 +24,6 @@
 </nav>
 
 <div id="login_container">
-
     <?php
     //Checks whether the database has been configured yet; if so, presents the Login screen
     if (file_exists('Scripts/connection.php')) {
