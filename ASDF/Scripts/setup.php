@@ -10,7 +10,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 //Creates the connection.php file that the rest of the system shall use.
-function databaseConnection($name, $pw, $dbhost, $status)
+function databaseConnection($name, $pw, $dbhost, $status, $dbname)
 {
     //Takes the values from the Setup page form
     $username = $name;
@@ -18,7 +18,7 @@ function databaseConnection($name, $pw, $dbhost, $status)
     $host = $dbhost;
     //Creates/overwrites any existing file
     $dbinfo = fopen("connection.php", "w") or die("Unable to create connection file!");
-
+    //Writes text to file line-by-line
     $date = date("Y/m/d h:i:sa");
     $text = "<?php  //Created by ASDF at {$date} \n";
     fwrite($dbinfo, $text);
@@ -30,7 +30,11 @@ function databaseConnection($name, $pw, $dbhost, $status)
     fwrite($dbinfo, $text);
     //Checks whether to include the database name in the connection file - for Setup mode
     if ($status) {
-        $text = "DEFINE ('DB_NAME', 'asdf'); \n";
+        if ($dbname != FALSE) { //Checks for a custom database name (for hosted services)
+            $text = "DEFINE ('DB_NAME', '{$dbname}'); \n";
+        } else {
+            $text = "DEFINE ('DB_NAME', 'asdf'); \n";
+        }
         fwrite($dbinfo, $text);
         $text = "\$db = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME); \n";
         fwrite($dbinfo, $text);
@@ -54,7 +58,7 @@ function databaseConnection($name, $pw, $dbhost, $status)
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../CSS/header.css">
-
+    <title>ASDF - Setup Mode</title>
 </head>
 <body>
 <nav>
@@ -64,8 +68,8 @@ function databaseConnection($name, $pw, $dbhost, $status)
     </div>
 </nav>
 
-<div id="container">
-    <div id="banner">
+<div id="login_container">
+    <div id="disclaimers">
 
 <?php
 switch ($_GET['stage']) {
@@ -76,7 +80,7 @@ switch ($_GET['stage']) {
             yet, then you need to set that up first- go do that and then come back here.  We recommend 
             something like WAMP or MAMP, but anything using <b>MySQLi</b> should be fine.<br/>
             Ensure that you have configured a user account within the database management software, this is the
-            account that ASDF will use to access and store your data.";
+            account that ASDF will use to access and store your data.<br/>";
         echo "<a href='setup.php?stage=2'>Let's get started...</a>";
         break;
     case 2: //Database Connection
@@ -86,11 +90,12 @@ switch ($_GET['stage']) {
             <input name="host" type="text" placeholder="Database Host" required autofocus>
             <input name="user" type="text" placeholder="Username for Database" required>
             <input name="pw" type="text" placeholder="Password for Database">
-            <input type="submit" value="Check...">
+            <input type="submit" value="Check..."><br/>
         </form>
         Note: If the ASDF server and the database server are running on the same computer, then you probably
         want to use <i>localhost</i> for the Host.  If you don't have a password on your database (you really
-        should!) then just enter a space for the password field.
+        should!) then just enter a space for the password field.  If you have been given a database name to use,
+        enter it on the next page.
         <?php
         break;
     case 3: //Checks and confirms database connection
@@ -101,20 +106,42 @@ switch ($_GET['stage']) {
         $database = mysqli_connect($host, $user, $pw);
         if ($database) { //Database connection worked
             //Writes connection details to 'connection.php' file
-            databaseConnection($user, $pw, $host, FALSE);
-            //Creates the database and its tables
-            include_once 'dbcreation.php';
-            //Updates the connection details to specify the ASDF database
-            databaseConnection($user, $pw, $host, TRUE);
-            echo "Database connection successful - saved to 'connection.php'";
-
-            echo "<a href='setup.php?stage=4'>Next step...</a>";
+            databaseConnection($user, $pw, $host, FALSE, FALSE);
+            echo "Database connection successful - saved to 'connection.php'<br/>";
+            echo "If there is a particular database on the server that you must use, enter the name below:";
+            echo "<form method='post' action='setup.php?stage=4'>";
+            echo "<input type='hidden' name='host' value='{$host}'>";
+            echo "<input type='hidden' name='user' value='{$user}'>";
+            echo "<input type='hidden' name='pw' value='{$pw}'>";
+            echo "<input name='database' type='text' placeholder='Optional - database name'>";
+            echo "<input type='submit' value='Next Step...'></form>";
         } else { //Database connection did not work
             echo "Database connection unsuccessful; please check and try again.";
             echo "<a href='setup.php?stage=2'>Try again...</a>";
         }
         break;
-    case 4: //Creating Admin account
+    case 4: //Custom database name and Admin account
+        if (!isset($_GET['error'])) { //Checks for a problem adding the Admin account
+            $host = $_POST['host'];
+            $user = $_POST['user'];
+            $pw = $_POST['pw'];
+
+            if (isset($_POST['database'])) { //Custom database specified
+                $userDB = $_POST['database'];
+                //Creates the database and its tables
+                include_once 'dbcreation.php';
+                //Updates the connection details to specify the custom database
+                databaseConnection($user, $pw, $host, TRUE, $userDB);
+            } else { //Default database name
+                unset($userDB);
+                //Creates the database and its tables
+                include_once 'dbcreation.php';
+                //Updates the connection details to specify the ASDF database
+                databaseConnection($user, $pw, $host, TRUE, FALSE);
+            }
+        }
+
+        //Creating Admin account
         echo "Now that you can connect to the database, we can start storing data.  First, enter a login name
         and password for yourself.  You will be a system Administrator!  The next time you log-in, you will
         add your name, initials and so on.";
@@ -138,7 +165,7 @@ switch ($_GET['stage']) {
 
         if (!$result) { //Checks that details were saved properly
             echo "There was a problem adding your login details to the database.  Please try again.";
-            echo "<a href='setup.php?stage=4'>Try again...</a>";
+            echo "<a href='setup.php?stage=4&error'>Try again...</a>";
         } else {
             echo "Details saved; you will use them whenever you login to ASDF. <br/>
                  How many people are on your development team (not including you)?";
@@ -162,10 +189,10 @@ switch ($_GET['stage']) {
         echo "<form method='post' action='setup.php?stage=7'>";
         for ($i = 0; $i < $team; $i++) {
             echo "<input name='name{$i}' type='text' required placeholder='Login'>";
-            echo "Make Admin y/n <input name='admin{$i}' type='checkbox' value='TRUE'>";
+            echo "Make Admin y/n <input name='admin{$i}' type='checkbox' value='TRUE'><br/>";
         }
         echo "<input type='hidden' name='team' value={$team}>";
-        echo "<input type='submit' value='Save'></form>";
+        echo "<input type='submit' value='Save'></form><br/>";
         echo "Note: Administrators will be able to change development priorities, reset user passwords, 
         and delete all system data if they want to.";
         break;
@@ -192,7 +219,7 @@ switch ($_GET['stage']) {
             }
         }
         echo "We're nearly done with the setup.  All that's left now is to enter some details about your project.
-            This will be used as a reference for the team, to help keep them on-track.";
+            This will be used as a reference for the team, to help keep them on-track.<br/>";
         echo "<a href='setup.php?stage=8'>Last step...</a>";
         break;
     case 8:
@@ -201,9 +228,9 @@ switch ($_GET['stage']) {
         Please provide some details about your project, to be shared amongst the team.  As an example you may wish to
         provide a mission statement, target users, links to design documents, and so on.
         <form method="post" action="setup.php?stage=9">
-            <input type="text" name="projectTitle" placeholder="Project Title" required maxlength="30">
-            <input type="text" name="details" placeholder="About the project" maxlength="500">
-            <input type="url" name="links" placeholder="Web links" maxlength="300">
+            <input type="text" name="projectTitle" placeholder="Project Title" required maxlength="30"><br/>
+            <textarea name="details" placeholder="About the project" maxlength="500" rows="8" cols="80"></textarea><br/>
+            <textarea name="links" placeholder="Web links, references etc." maxlength="300" rows="8" cols="80"></textarea><br/>
             <input type="submit" value="Save">
         </form>
         <?php
@@ -234,7 +261,7 @@ switch ($_GET['stage']) {
         echo "Setup mode is 99.5% complete!  You can now ask your users to login with the usernames
         you configured earlier.  Whenever a user (including you) logs in for the first time, ASDF 
         will ask them to complete their profile information- this includes setting a password for
-        their accounts for your users.";
+        their accounts for your users.<br/>";
         echo "<a href='../index.php'>Let's get started...</a>";
         break;
     default:

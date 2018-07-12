@@ -11,14 +11,18 @@ if (session_status() === PHP_SESSION_NONE) {
 
 if (isset($_REQUEST['login'])) { //Checks that user was trying to login
     $login = filter_var($_POST['user'], FILTER_SANITIZE_STRING);
-    $pw = filter_var($_POST['pw'], FILTER_SANITIZE_STRING);
+    if (isset($_POST['pw'])) {
+        $pw = filter_var($_POST['pw'], FILTER_SANITIZE_STRING);
+    } else {
+        $pw = 'new';
+    }
 
     include_once 'connection.php';
     //Gets the encrypted password from the database
     $sql = "SELECT * FROM logins WHERE login = '{$login}'";
     $result = mysqli_query($db, $sql);
     $row = mysqli_fetch_assoc($result);
-    if (mysqli_num_rows($result) != 1) {
+    if (mysqli_num_rows($result) != 1) { //Wrong username means user is booted out
         session_unset();
         session_destroy();
         header('Location: ../index.php?error');
@@ -27,6 +31,10 @@ if (isset($_REQUEST['login'])) { //Checks that user was trying to login
 
     //Checks for new users or a cleared password
     if(!isset($row['pwhash'])) {
+        //User is allowed to log-in without a password, if the username was correct
+        $_SESSION['logged-in'] = TRUE;
+        $_SESSION['status'] = '0'; //Forces normal user at this stage
+        $_SESSION['id'] = $row['userID'];
         //Sends user to the edit function
         header("Location: ../edit.php?profile={$row['userID']}&user={$row['userID']}");
         exit;
@@ -48,7 +56,7 @@ if (isset($_REQUEST['login'])) { //Checks that user was trying to login
             //Temp details
             $_SESSION['name'] = 'New User';
             $_SESSION['initials'] = 'ABCD';
-            $editpage = "Location: ../edit.php?user={$id}";
+            $editpage = "Location: ../edit.php?user={$id}&new";
             header($editpage);
         } else { //Existing user
             $_SESSION['name'] = $row['name'];

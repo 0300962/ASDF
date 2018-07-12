@@ -141,6 +141,10 @@ a:hover {
     border-radius: 5px;
     text-align: center;
 }
+#disclaimers > a:hover {
+    /*color: #b92f2f;*/
+    background-color: #2fb9b9;
+}
 
 .profile_edit > i {
     position: relative;

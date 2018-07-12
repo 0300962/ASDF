@@ -21,13 +21,13 @@ if (isset($_GET['error'])) { //Checks for an incoming Error code from a failed e
     $error = filter_var($_GET['error'], FILTER_SANITIZE_NUMBER_INT);
     switch ($error) {
         case 0:
-            echo "unauthorised user!";
+            echo "Unauthorised user!";
             break;
         case 1:
-            echo "passwords do not match!";
+            echo "Passwords do not match!";
             break;
         case 2:
-            echo "could not save changes.";
+            echo "Could not save changes.";
             break;
         case 3:
             echo "Data exceeds maximum field length.";
@@ -61,8 +61,8 @@ if (isset($_GET['profile'])) { //User Login details
         }
         echo "<input type='hidden' name='id' value='{$profile}'>";
         echo "<input type=hidden name='mode' value='update_profile'>";
-        echo "Login: <input type='text' name='login' value='{$row['login']}' maxlength='128' required readonly><br/>";
-        echo "Password: <input type='password' name='password' placeholder='Enter new password' required><br/>";
+        echo "Login: <input type='text' name='login' value='{$row['login']}' maxlength='128' required readonly><br/><br/>";
+        echo "Password: <input type='password' name='password' placeholder='Enter new password' required><br/><br/>";
         echo "Confirm: <input type='password' name='password2' placeholder='Confirm new password' required><br/>";
         if ($row['status'] == '1') { //Checks the admin status of the account being edited
             if ($approved) { //Checks if it's an admin making the change
@@ -75,10 +75,10 @@ if (isset($_GET['profile'])) { //User Login details
         } else { //Normal user account being edited
             if ($approved) {
                 echo "Administrator: <input type='radio' name='status' value='1'>Yes";
-                echo "<input type='radio' name='status' value='0'checked>No";
+                echo "<input type='radio' name='status' value='0' checked>No";
             } else { //Normal users may not make themselves Admin
                 echo "Administrator: <input type='radio' name='status' value='1' readonly>Yes";
-                echo "<input type='radio' name='status' value='0'checked readonly>No";
+                echo "<input type='radio' name='status' value='0' checked readonly>No";
             }
         }
         echo "<input type='submit' name='update' value='Save'>";
@@ -94,8 +94,11 @@ if (isset($_GET['profile'])) { //User Login details
         $sql = "SELECT * FROM users WHERE userID = {$user}";
         $result = mysqli_query($db, $sql);
         $row = mysqli_fetch_assoc($result);
-        if (mysqli_num_rows($result) != 1) {
+        if (mysqli_num_rows($result) != 1 && (!isset($_GET['new']))) {
             echo "Error retrieving details from database.";
+        }
+        if (isset($_GET['new'])) { //Checks for a new user
+            echo "<input type=hidden name='new' value='true'>";
         }
         echo "<input type='hidden' name='id' value='{$user}'>";
         echo "<input type=hidden name='mode' value='user'>";

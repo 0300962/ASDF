@@ -8,27 +8,21 @@
 
 
 include_once 'connection.php';
-//Creates the database
-$sql = "CREATE DATABASE IF NOT EXISTS asdf;";
-$result = mysqli_query($db, $sql);
-//Selects the database
-$sql =  "USE asdf;";
-$result = mysqli_query($db, $sql);
-//Creates the Users table
-$sql = "CREATE TABLE users (
-            userID int NOT NULL,
-            name varchar(50) NULL,
-            initials varchar(4) NULL,
-            details varchar (300) NULL,
-            colour varchar (7) NULL,
-            
-            CONSTRAINT PK_Users PRIMARY KEY (userID)
-            );           
-        ";
-$result = mysqli_query($db, $sql);
-if (!$result) {  //Could not create Database or Users Table
-    echo "Step 1 Failed";
-    print_r(mysqli_errno($db));
+
+if (isset($userDB)) { //Checks for a custom database name
+    //Creates the database
+    $sql = "CREATE DATABASE IF NOT EXISTS {$userDB};";
+    $result = mysqli_query($db, $sql);
+    //Selects the database
+    $sql =  "USE {$userDB};";
+    $result = mysqli_query($db, $sql);
+} else {
+    //Creates the database
+    $sql = "CREATE DATABASE IF NOT EXISTS asdf;";
+    $result = mysqli_query($db, $sql);
+    //Selects the database
+    $sql =  "USE asdf;";
+    $result = mysqli_query($db, $sql);
 }
 
 $sql = "CREATE TABLE logins (
@@ -37,11 +31,29 @@ $sql = "CREATE TABLE logins (
             pwhash varchar(256) NULL,
             status int(1) NOT NULL,
             
-            CONSTRAINT PK_Logins PRIMARY KEY (login),
-            CONSTRAINT FK_Logins_Users FOREIGN KEY (userID) REFERENCES users(userID)
+            CONSTRAINT PK_Logins PRIMARY KEY (login)
             );";
+
 $result = mysqli_query($db, $sql);
-if (!$result) {  //Could not create Logins table
+if (!$result) {  //Could not create Database or Logins Table
+    echo "Step 1 Failed";
+    print_r(mysqli_errno($db));
+}
+//Creates the Users table
+$sql = "CREATE TABLE users (
+            userID int NOT NULL,
+            name varchar(50) NULL,
+            initials varchar(4) NULL,
+            details varchar (300) NULL,
+            colour varchar (7) NULL,
+            
+            CONSTRAINT PK_Users PRIMARY KEY (userID),
+            CONSTRAINT FK_Users_Logins FOREIGN KEY (userID) REFERENCES logins(userID)
+            );           
+        ";
+
+$result = mysqli_query($db, $sql);
+if (!$result) {  //Could not create Users table
     echo "Step 2 Failed";
     print_r(mysqli_errno($db));
 }
@@ -96,7 +108,7 @@ if (!$result) {  //Could not create Sprint History table
 
 $sql = "CREATE TABLE chat (
             msgNo int NOT NULL AUTO_INCREMENT,
-            sent datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            sent timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             msg varchar (180) NOT NULL,
             sender int NOT NULL,
             

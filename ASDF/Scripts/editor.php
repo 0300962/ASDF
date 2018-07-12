@@ -58,13 +58,22 @@ switch ($_POST['mode']) {
         $initials = filter_var($_POST['initials'], FILTER_SANITIZE_STRING);
         $details = filter_var($_POST ['details'], FILTER_SANITIZE_STRING);
         $colour = filter_var($_POST['colour'], FILTER_SANITIZE_EMAIL);
+        if (isset($_POST['new'])) {
+            $newUser = TRUE;
+        } else {
+            $newUser = FALSE;
+        }
         //Checks data isn't too long for the database; shouldn't be possible
         if ((strlen($name) > 50) OR (strlen($initials) > 4) OR (strlen($details) > 300)) {
             error(3, $src);
         }
-
-        $sql = "UPDATE users SET name='{$name}', initials='{$initials}', details='{$details}', colour='{$colour}'
+        if ($newUser) { //Creates a new User record for the user during registration
+            $sql = "INSERT INTO users (userID, name, initials, details, colour) 
+                    VALUES ('{$userID}', '{$name}', '{$initials}', '{$details}', '{$colour}')";
+        } else {
+            $sql = "UPDATE users SET name='{$name}', initials='{$initials}', details='{$details}', colour='{$colour}'
                 WHERE userID = '{$userID}';";
+        }
         //Submits any changes
         send($sql, $db, $src);
         break;
