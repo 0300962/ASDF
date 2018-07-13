@@ -143,12 +143,13 @@ switch ($_GET['stage']) {
 
         //Creating Admin account
         echo "Now that you can connect to the database, we can start storing data.  First, enter a login name
-        and password for yourself.  You will be a system Administrator!  The next time you log-in, you will
-        add your name, initials and so on.";
+        and password for yourself- note these are case-sensitive, minimum 8 characters for the password.  
+        You will be a system Administrator!  The next time
+         you log-in, you will be asked for your name, initials and so on.<br/>";
         ?>
         <form method="post" action="setup.php?stage=5">
             <input name="login" type="text" placeholder="Username" required autofocus>
-            <input name="pw" type="password" placeholder="Password" required>
+            <input name="pw" type="password" placeholder="Password" required minlength="8">
             <input type="submit" value="Save">
         </form>
         <?php
@@ -173,7 +174,8 @@ switch ($_GET['stage']) {
             <form method="post" action="setup.php?stage=6">
                 <input name="team" type="number" required min="0" max="50" autofocus>
                 <input type="submit" value="Save">
-            </form>
+            </form> <br/>
+            Note: You will be able to add team members later once setup is complete too.
         <?php
         }
         break;
@@ -183,13 +185,13 @@ switch ($_GET['stage']) {
             echo "<script type='text/javascript'> location = '../Scripts/setup.php?stage=7'</script>";
             break;
         }
-        echo "Please enter login names for each team member below.  They will be prompted to enter
-         a password and personal details when they first log-in.  If any other user is to be an Administrator,
-          tick the box for that account.";
+        echo "Please enter login names for each team member below; distribute these names (case-sensitive)) to your team
+         members when you're ready for them to start using the system.  They will be prompted to enter a password and
+          other details when they first log-in.<br/>If any other user is to be an Administrator, tick the box for that account.<br/>";
         echo "<form method='post' action='setup.php?stage=7'>";
         for ($i = 0; $i < $team; $i++) {
-            echo "<input name='name{$i}' type='text' required placeholder='Login'>";
-            echo "Make Admin y/n <input name='admin{$i}' type='checkbox' value='TRUE'><br/>";
+            echo "<input name='name{$i}' type='text' required placeholder='Username (case-sensitive)'>";
+            echo " Make Admin y/n <input name='admin{$i}' type='checkbox' value='TRUE'><br/>";
         }
         echo "<input type='hidden' name='team' value={$team}>";
         echo "<input type='submit' value='Save'></form><br/>";

@@ -38,7 +38,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
     //Table heading with show/hide button
     echo "<tr>
-                <th>User Story</th><th>Acceptance Criteria</th><th>Priority <button type='button' onclick='update({$button})'>{$buttonlabel}</button></th>
+                <th>User Story</th><th>Acceptance Criteria</th><th>Priority <button id='pbl_button' type='button' onclick='update({$button})'>{$buttonlabel}</button></th>
           </tr>";
 
     while($row = mysqli_fetch_array($result)) {
