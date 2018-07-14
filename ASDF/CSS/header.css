@@ -209,3 +209,9 @@ input[type=button]:hover, input[type=submit]:hover, #pbl_button:hover {
 ::-webkit-scrollbar-thumb:hover {
     background: #2fb9b9;
 }
+
+@media (max-width: 1150px) {
+    #login_container {
+        width: 900px;
+    }
+}

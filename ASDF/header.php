@@ -87,7 +87,7 @@ include_once "Scripts/connection.php";
             $now = date("Y/m/d");
             //Some way to figure out days left?
             $days = 0;
-            echo "<div id='sprint_info'>Sprint in progress: {$days} days left!</div>";
+            echo "<div id='sprint_info'>End of Sprint: {$endDate}</div>";
         }
 
         echo "<div class='drop-down' id='greeting'>";
