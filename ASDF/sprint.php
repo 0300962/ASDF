@@ -222,11 +222,8 @@ if (isset($_GET['func'])) {
                  </form>";
             echo "<a href='sprint.php'>Back</a>";
             break;
-        case 4:
-
-            break;
         default:
-
+            echo "Sorry, something went wrong.<br/><a href='sprint.php'>Back</a>";
             break;
     }
 } else {
@@ -239,11 +236,7 @@ if (isset($_GET['func'])) {
         echo "<a href='sprint.php?func=5'>Change end-date</a><br/>";
     }
     echo "<a href='admin.php'>Back</a>";
-
-
 }
 ?>
     </div>
-
-
 </div>
