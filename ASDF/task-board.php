@@ -6,6 +6,15 @@
  * Time: 12:56
  */
 include 'header.php';
+
+//Checks the last database revision to pre-load the messaging function
+$sql = "SELECT revision FROM project";
+$result = mysqli_query($db, $sql);
+$row = mysqli_fetch_array($result);
+$version = $row['revision'];
+//Sets JavaScript variable to be used by Listener
+echo "<script>var version = {$version}</script>";
+
 ?>
 <link rel="stylesheet" href="CSS/taskboard.css">
 <script>
@@ -43,14 +52,14 @@ include 'header.php';
 
 </div>
 <script type="text/javascript">
-    var version;
-    if(!!window.EventSource) {
+    //Listener for messaging function
+   if(!!window.EventSource) {
         //Opens the version-tracking script
         var msgSource = new EventSource('Scripts/version.php');
         msgSource.onopen = function() {
             console.log("Connected");
         };
-
+        //Runs when a message is received from version.php
         msgSource.onmessage = function(event) {
             var newversion = event.data;
             if (newversion != version) { //Checks whether page displayed is the latest version

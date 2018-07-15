@@ -246,7 +246,7 @@ switch ($_GET['stage']) {
             $details = '';
         }
         if (isset($_POST['links'])) {
-            $url = filter_var($_POST['links'], FILTER_SANITIZE_URL);
+            $url = addslashes($_POST['links']);
         } else {
             $url = '';
         }

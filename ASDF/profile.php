@@ -27,10 +27,14 @@ include 'header.php';
             echo "<h2>{$row['name']}</h2>";
             echo "<h4>{$row['initials']}<div id='colour_box' style='background-color: {$row['colour']}'></div></h4>";
             echo "<h3>User Details</h3>{$row['details']}";
-        }
-        //Provides the Edit icon for Admin or account owners
-        if (($_SESSION['status'] == '1') OR ($_SESSION['id'] == $user)) {
-            echo "<br/><a class='profile_edit' href='edit.php?user={$user}'><i class='material-icons'>settings</i></a>";
+
+            //Provides the Edit icon for Admin or account owners
+            if (($_SESSION['status'] == '1') OR ($_SESSION['id'] == $user)) {
+                echo "<br/><a class='profile_edit' href='edit.php?user={$user}'><i class='material-icons'>settings</i></a>";
+            }
+        } else {
+            echo "Error: Invalid Link.";
+            echo "<a href='task-board.php'>Back</a>";
         }
         ?>
     </div>

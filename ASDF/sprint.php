@@ -230,9 +230,9 @@ if (isset($_GET['func'])) {
     echo "Welcome to the Sprint Management Page.  Here you can start or stop a Sprint, including 
     setting the sub-tasks the team will tackle to meet the objectives.<br/>";
     if (status($db) == 'No Sprint in Progress') {
-        echo "<a href='sprint.php?func=1'>Start New Sprint</a>";
+        echo "<a href='sprint.php?func=1'>Start New Sprint</a> ";
     } else {
-        echo "<a href='sprint.php?func=3'>Stop Current Sprint</a><br/>";
+        echo "<a href='sprint.php?func=3'>Stop Current Sprint</a> ";
         echo "<a href='sprint.php?func=5'>Change end-date</a><br/>";
     }
     echo "<a href='admin.php'>Back</a>";

@@ -165,7 +165,7 @@ if (isset($_GET['profile'])) { //User Login details
         echo "Error retrieving details from database.";
     }
     echo "<input type=hidden name='mode' value='project'>";
-    echo "Project Title:<input type='text' name='title' value='title' maxlength='30' required><br/>";
+    echo "Project Title: <input type='text' name='title' value='{$row['title']}' maxlength='30' required><br/>";
     echo "Project Details:<br/><textarea name='details' maxlength='500' rows='8' cols='70'>{$row['details']}</textarea><br/>";
     echo "Project Links:<br/><textarea name='links' maxlength='300' rows='8' cols='70'>{$row['links']}</textarea><br/>";
     echo "<input type='submit' name='update' value='Save'>";

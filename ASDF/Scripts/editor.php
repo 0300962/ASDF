@@ -111,7 +111,8 @@ switch ($_POST['mode']) {
         $src = "project";
         $title = filter_var($_POST['title'], FILTER_SANITIZE_STRING);
         $details = filter_var($_POST['details'], FILTER_SANITIZE_STRING);
-        $links = filter_var($_POST['links'], FILTER_SANITIZE_URL);
+        $links = addslashes($_POST['links']);
+        //$links = filter_var($_POST['links'], FILTER_SANITIZE_URL);
         //Checks data isn't too long for the database; shouldn't be possible
         if ((strlen($title) > 30) OR (strlen($details) > 500) OR (strlen($links) > 300)) {
             error(3, $src);
