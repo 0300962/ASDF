@@ -70,6 +70,7 @@ function databaseConnection($name, $pw, $dbhost, $status, $dbname)
 
 <div id="login_container">
     <div id="disclaimers">
+        <h3>ASDF Setup Mode</h3>
 
 <?php
 switch ($_GET['stage']) {
