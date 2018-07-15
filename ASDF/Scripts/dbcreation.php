@@ -124,7 +124,7 @@ if (!$result) {  //Could not create Chat history Table
 $sql = "CREATE TABLE project (
             title varchar(30) NOT NULL,
             details varchar(500) NULL,
-            links varchar(300) NULL,
+            links varchar(500) NULL,
             revision varchar(16) NULL,
             
             CONSTRAINT PK_Project PRIMARY KEY (title)

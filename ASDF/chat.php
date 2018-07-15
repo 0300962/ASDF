@@ -80,6 +80,7 @@ echo "<script>var version = {$version}</script>";
     while ($row = mysqli_fetch_array($result)) {
         echo "<div class='msg' style='background-color: {$row['colour']}'>{$row['sent']} ({$row['initials']}) : {$row['msg']}</div>";
     }
+    echo "End of messages!<br/>";
     echo "<a href='chat.php?start={$end}'>Next page</a> ";
 
     if ($end != 25) {  //Checks whether user is on front-page or not
