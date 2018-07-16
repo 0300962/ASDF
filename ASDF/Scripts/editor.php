@@ -58,6 +58,16 @@ switch ($_POST['mode']) {
         $initials = filter_var($_POST['initials'], FILTER_SANITIZE_STRING);
         $details = filter_var($_POST ['details'], FILTER_SANITIZE_STRING);
         $colour = filter_var($_POST['colour'], FILTER_SANITIZE_EMAIL);
+
+        //Checks what colour the users have chosen
+        $red = hexdec(substr($colour, 1,2));
+        $green = hexdec(substr($colour, 3, 2));
+        $blue = hexdec(substr($colour, 5, 2));
+        //Prevent any users from setting their colour to (effectively) black
+        if (($red <= 33) AND ($blue <= 33) AND ($green <= 33) OR (($red + $blue + $green) <= 150)) {
+            $colour = '#333333'; //Dark grey
+        }
+
         if (isset($_POST['new'])) {
             $newUser = TRUE;
         } else {
