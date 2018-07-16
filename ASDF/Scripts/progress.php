@@ -27,6 +27,8 @@ function update($sql, $db){
     if (!$result) {
         echo "Error: unable to update SBI!";
     }
+    //Sets mode for the signaller script
+    $signal_mode = 'tb';
     //Updates the database revision
     include 'signaller.php';
     header('Location: ../task-board.php');

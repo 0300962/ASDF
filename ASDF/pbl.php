@@ -6,6 +6,14 @@
  * Time: 12:57
  */
 include 'header.php';
+
+//Checks the last database revision to pre-load the messaging function
+$sql = "SELECT pbl FROM project";
+$result = mysqli_query($db, $sql);
+$row = mysqli_fetch_array($result);
+$version = $row['pbl'];
+//Sets JavaScript variable to be used by Listener
+echo "<script> var version = {$version} </script>";
 ?>
 <script> //Sets the navbar link to show which page you're on
     document.getElementById("pblLink").className += " active";
@@ -33,7 +41,9 @@ if (isset($_POST['story']) AND ($_SESSION['status'] == 1)) {
         print_r(mysqli_errno($db));
         echo $sql;
     }
-
+    //Sets mode for the signaller script
+    $signal_mode = 'pbl';
+    //Updates database revision
     include 'Scripts/signaller.php';
 }
 ?>
@@ -81,7 +91,6 @@ if (isset($_POST['story']) AND ($_SESSION['status'] == 1)) {
     }
 ?>
 <script type="text/javascript">
-    var version;
     if(!!window.EventSource) {
         //Opens the version-tracking script
         var msgSource = new EventSource('Scripts/version.php');
@@ -90,9 +99,9 @@ if (isset($_POST['story']) AND ($_SESSION['status'] == 1)) {
         };
 
         msgSource.onmessage = function(event) {
-            var newversion = event.data;
-            if (newversion != version) { //Checks whether page displayed is the latest version
-                version = newversion;
+            var newversion = JSON.parse(event.data);
+            if (newversion.pbl != version) { //Checks whether page displayed is the latest version
+                version = newversion.pbl;
                 console.log('Update received');
                 update(true);  //Updates the backlog if there's a change of version detected
             }

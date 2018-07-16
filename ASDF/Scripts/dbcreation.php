@@ -125,7 +125,9 @@ $sql = "CREATE TABLE project (
             title varchar(30) NOT NULL,
             details varchar(500) NULL,
             links varchar(500) NULL,
-            revision varchar(16) NULL,
+            pbl int(8) DEFAULT 1,
+            taskboard int(8) DEFAULT 1,
+            chat int(8) DEFAULT 1,            
             
             CONSTRAINT PK_Project PRIMARY KEY (title)
         );";

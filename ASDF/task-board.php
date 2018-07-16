@@ -8,12 +8,12 @@
 include 'header.php';
 
 //Checks the last database revision to pre-load the messaging function
-$sql = "SELECT revision FROM project";
+$sql = "SELECT taskboard FROM project";
 $result = mysqli_query($db, $sql);
 $row = mysqli_fetch_array($result);
-$version = $row['revision'];
+$version = $row['taskboard'];
 //Sets JavaScript variable to be used by Listener
-echo "<script>var version = {$version}</script>";
+echo "<script> var version = {$version}; </script>";
 
 ?>
 <link rel="stylesheet" href="CSS/taskboard.css">
@@ -61,9 +61,10 @@ echo "<script>var version = {$version}</script>";
         };
         //Runs when a message is received from version.php
         msgSource.onmessage = function(event) {
-            var newversion = event.data;
-            if (newversion != version) { //Checks whether page displayed is the latest version
-                version = newversion;
+            var newversion = JSON.parse(event.data);
+            console.log("Message received");
+            if (newversion.tb != version) { //Checks whether page displayed is the latest version
+                version = newversion.tb;
                 console.log('Update received');
                 update();  //Updates the backlog if there's a change of version detected
             }

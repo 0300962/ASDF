@@ -15,15 +15,17 @@ if (isset($_POST['msg'])) { //Checks for an incoming message
         echo "Error: Could not post message to chat log.<br/>";
         echo $sql;
     }
-    //Updates the database version to let others know
+    //Sets mode for the signaller script
+    $signal_mode = 'chat';
+    //Updates the database revision
     include_once 'Scripts/signaller.php';
 }
 
 //Checks the last database revision to pre-load the messaging function
-$sql = "SELECT revision FROM project";
+$sql = "SELECT chat FROM project";
 $result = mysqli_query($db, $sql);
 $row = mysqli_fetch_array($result);
-$version = $row['revision'];
+$version = $row['chat'];
 //Sets JavaScript variable to be used by Listener
 echo "<script>var version = {$version}</script>";
 ?>
@@ -40,8 +42,8 @@ echo "<script>var version = {$version}</script>";
         };
 
         msgSource.onmessage = function(event) {
-            var newversion = event.data;
-            if (newversion != version) { //Checks whether page displayed is the latest version
+            var newversion = JSON.parse(event.data);
+            if (newversion.chat != version) { //Checks whether page displayed is the latest version
                 console.log('Update received');
                 location = location; //Refreshes the page
             }
