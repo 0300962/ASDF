@@ -26,10 +26,10 @@ include 'header.php';
         echo $row['details'];
         echo "<h3>Links and Reference</h3>";
         echo $row['links'];
-
+        echo "<br/>";
         //Provides the Edit icon for Admin or account owners
-        if (($_SESSION['status'] == '1') OR ($_SESSION['id'] == $user)) {
-            echo "<br/><a class='profile_edit' href='edit.php?project'><i class='material-icons'>settings</i></a>";
+        if ($_SESSION['status'] == '1') {
+            echo "<a class='profile_edit' href='edit.php?project'><i class='material-icons'>settings</i></a>";
         }
         ?>
         <a href='task-board.php'>Back</a>

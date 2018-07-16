@@ -83,7 +83,7 @@ if (isset($_GET['profile'])) { //User Login details
                 echo "<input type='radio' name='status' value='0' checked readonly>No";
             }
         }
-        echo "<input type='submit' name='update' value='Save'>";
+        echo "<br/><br/><input type='submit' name='update' value='Save'> <a href='profile.php?user={$profile}'>Back</a>";
         echo "</form>";
     } else {  //Unauthorised user
         echo "<script type='text/javascript'> location = 'edit.php?error=0'</script>";
@@ -107,11 +107,11 @@ if (isset($_GET['profile'])) { //User Login details
         }
         echo "<input type='hidden' name='id' value='{$user}'>";
         echo "<input type=hidden name='mode' value='user'>";
-        echo "Name: <input type='text' name='name' value='{$row['name']}' maxlength='50' required><br/>";
+        echo "Name: <input type='text' name='name' value='{$row['name']}' maxlength='50' required> ";
         echo "Initials: <input type='text' name='initials' value='{$row['initials']}' maxlength='4' required><br/>";
         echo "Details: <br/><textarea name='details' maxlength='300' rows='8' cols='70'>{$row['details']}</textarea><br/>";
-        echo "Colour: <input type='color' name='colour' value='{$row['colour']}'><br/>";
-        echo "<input type='submit' name='update' value='Save'>";
+        echo "Colour: <input type='color' name='colour' value='{$row['colour']}'><br/><br/>";
+        echo "<input type='submit' name='update' value='Save'>  <a href='profile.php?user={$user}'>Back</a>";
         echo "</form>";
     } else {  //Unauthorised user
         echo "<script type='text/javascript'> location = 'edit.php?error=0'</script>";
@@ -132,7 +132,7 @@ if (isset($_GET['profile'])) { //User Login details
     echo "<input type=hidden name='mode' value='pbi'>";
     echo "User Story:<br/><textarea name='story' maxlength='300' rows='8' cols='70' required>{$row['userStory']}</textarea><br/>";
     echo "Acceptance Criteria:<br/><textarea name='criteria' maxlength='300' rows='8' cols='70' required>{$row['acceptance']}</textarea><br/>";
-    echo "<input type='submit' name='update' value='Save'>";
+    echo "<input type='submit' name='update' value='Save'>  <a href='pbl.php'>Back</a>";
     echo "</form>";
 } elseif (isset($_GET['sbi']) && $approved) { //SBI items
     echo "<h3>Edit Sprint Backlog Item</h3>";
@@ -152,7 +152,7 @@ if (isset($_GET['profile'])) { //User Login details
     echo "Parent PBI Number: {$row['pbiNo']}<br/>";
     echo "Task Description:<br/><textarea name='task' maxlength='300' rows='8' cols='70' required>{$row['task']}</textarea><br/>";
     echo "Task Effort:<input type='number' name='effort' value='{$row['effort']}' required min='1' max='32'><br/>";
-    echo "<input type='submit' name='update' value='Save'>";
+    echo "<br/><input type='submit' name='update' value='Save'>  <a href='task-board.php'>Back</a>";
     echo "</form>";
 } elseif (isset($_GET['project']) && $approved) { //Overall Project details
     echo "<h3>Edit Project Details</h3>";
@@ -168,7 +168,7 @@ if (isset($_GET['profile'])) { //User Login details
     echo "Project Title: <input type='text' name='title' value='{$row['title']}' maxlength='30' required><br/>";
     echo "Project Details:<br/><textarea name='details' maxlength='500' rows='8' cols='70'>{$row['details']}</textarea><br/>";
     echo "Project Links:<br/><textarea name='links' maxlength='300' rows='8' cols='70'>{$row['links']}</textarea><br/>";
-    echo "<input type='submit' name='update' value='Save'>";
+    echo "<input type='submit' name='update' value='Save'> <a href='project.php'>Back</a>";
     echo "</form>";
 } else { //Shouldn't be here - redirects to Task Board
     echo "<script type='text/javascript'> location = 'task-board.php'</script>";

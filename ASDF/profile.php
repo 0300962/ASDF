@@ -31,6 +31,7 @@ include 'header.php';
             //Provides the Edit icon for Admin or account owners
             if (($_SESSION['status'] == '1') OR ($_SESSION['id'] == $user)) {
                 echo "<br/><a class='profile_edit' href='edit.php?user={$user}'><i class='material-icons'>settings</i></a>";
+                echo " <a href='edit.php?profile={$user}'>Change Password</a>";
             }
         } else {
             echo "Error: Invalid Link.";

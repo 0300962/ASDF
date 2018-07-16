@@ -35,6 +35,9 @@ if (isset($_REQUEST['login'])) { //Checks that user was trying to login
         $_SESSION['logged-in'] = TRUE;
         $_SESSION['status'] = '0'; //Forces normal user at this stage
         $_SESSION['id'] = $row['userID'];
+        //Temp details
+        $_SESSION['name'] = 'Set Password';
+        $_SESSION['initials'] = 'ABCD';
         //Sends user to the edit function
         header("Location: ../edit.php?profile={$row['userID']}&user={$row['userID']}");
         exit;
