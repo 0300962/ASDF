@@ -83,11 +83,12 @@ include_once "Scripts/connection.php";
 
         if (mysqli_num_rows($result) > 0) {  // Only shown when a Sprint is in progress
             $row = mysqli_fetch_assoc($result);
-            $endDate = $row['endDate'];
-            $now = date("Y/m/d");
-            //Some way to figure out days left?
-            $days = 0;
-            echo "<div id='sprint_info'>End of Sprint: {$endDate}</div>";
+            $endDate = new DateTime($row['endDate']);
+            $now = new DateTime(date("Y/m/d"));
+            //Gets difference in dates between today and end-date
+            $days = date_diff($now, $endDate);
+            $days = $days->format('%r%a days');
+            echo "<div id='sprint_info'>Sprint in progress: {$days} left</div>";
         }
 
         echo "<div class='drop-down' id='greeting'>";

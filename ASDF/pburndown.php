@@ -58,7 +58,7 @@ include 'header.php';
                 title: 'Product Backlog Items',
                 minValue: 0
             },
-            width:1000,
+            width:900,
             height:600,
             hAxis: {
                 format: 'd/M/yy',
@@ -69,17 +69,17 @@ include 'header.php';
             bar: {groupWidth: "25%"}
         };
         //Creates new graph object within container on page
-        var burnDown = new google.visualization.ColumnChart(document.getElementById('graph_cont'));
+        var burnDown = new google.visualization.ColumnChart(document.getElementById('graph'));
         //Renders graph using the Datatable, with the pre-set options into the Div
         burnDown.draw(data, options);
     }
 </script>
 <br/>
-<div id="disclaimers">
-    <div id="graph_cont">
-test
-    </div>
+<div id="graph_cont">
+    This graph demonstrates the progress of the development project across multiple Sprints.
+    <div id="graph"></div>
     <a href="task-board.php">Back</a>
 </div>
+
 <?php
 

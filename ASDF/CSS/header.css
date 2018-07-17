@@ -148,7 +148,7 @@ input[type=button]:hover, input[type=submit]:hover, #pbl_button:hover {
 #login_panel a:hover {
     background-color: #2fb9b9;
 }
-#disclaimers {
+#disclaimers, #graph_cont {
     width: 70%;
     padding: 20px;
     line-height: 2.2;
@@ -159,7 +159,7 @@ input[type=button]:hover, input[type=submit]:hover, #pbl_button:hover {
     border-radius: 5px;
     background-color: white;
 }
-#disclaimers a:link {
+#disclaimers a:link, #graph_cont a:link {
     background-color: #b92f2f;
     padding: 5px;
     margin-left: auto;
@@ -167,13 +167,16 @@ input[type=button]:hover, input[type=submit]:hover, #pbl_button:hover {
     border-radius: 5px;
     text-align: center;
 }
-#disclaimers a:hover {
+#disclaimers a:hover, #graph_cont a:hover {
     background-color: #2fb9b9;
 }
 
 .profile_edit > i {
     position: relative;
     top: 7px;
+}
+#graph_cont {
+    min-width: 900px;
 }
 #colour_box {
     display: inline-block;
@@ -185,23 +188,18 @@ input[type=button]:hover, input[type=submit]:hover, #pbl_button:hover {
     position: relative;
     top: 5px;
 }
-
 #chatlog {
     height: 600px;
     overflow-y: auto;
-
 }
-
 .msg {
     border: 1px solid darkgrey;
     border-radius: 5px;
     margin: 2px;
 }
-
 #banner {
     background-color: white;
 }
-
 #banner > a:link {
     background-color: #b92f2f;
     padding: 10px;
@@ -230,6 +228,17 @@ input[type=button]:hover, input[type=submit]:hover, #pbl_button:hover {
 }
 
 @media (max-width: 1150px) {
+    nav {
+        width: 1150px;
+    }
+    #sprint_info {
+        position: relative;
+        right: 0;
+    }
+    #greeting {
+        position: relative;
+        right: 5px;
+    }
     #login_container {
         width: 900px;
     }
