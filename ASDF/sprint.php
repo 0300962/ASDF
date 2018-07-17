@@ -24,8 +24,9 @@ function status($db) {
 }
 ?>
 
-<script> //Sets the navbar link to show which page you're on
+<script> //Sets the navbar link and title to show which page you're on
     document.getElementById("adminLink").className += " active";
+    document.title = "ASDF - Sprint Management";
 </script>
 
 <div id='login_container'><span id='disclaimers'><h3>Sprint Management</h3>

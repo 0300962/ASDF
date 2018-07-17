@@ -7,8 +7,9 @@
  */
 include 'header.php';
 ?>
-<script> //Sets the navbar link to show which page you're on
+<script> //Sets the navbar link and title to show which page you're on
     document.getElementById("users").className += " active";
+    document.title = "ASDF - User Profile";
 </script>
 
 <div id="login_container">

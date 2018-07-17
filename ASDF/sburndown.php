@@ -7,7 +7,8 @@
  */
 include 'header.php';
 ?>
-    <script> //Sets the navbar link to show which page you're on
+    <script> //Sets the navbar link and title to show which page you're on
         document.getElementById("performance").className += " active";
+        document.title = "ASDF - Sprint Burndown";
     </script>
 <?php

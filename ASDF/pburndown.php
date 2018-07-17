@@ -7,8 +7,9 @@
  */
 include 'header.php';
 ?>
-<script> //Sets the navbar link to show which page you're on
+<script> //Sets the navbar link and title to show which page you're on
     document.getElementById("performance").className += " active";
+    document.title = "ASDF - Project Burndown";
 </script>
 <!-- Google Charts API -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

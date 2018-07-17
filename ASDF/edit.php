@@ -13,6 +13,8 @@ if ($_SESSION['status'] == '1') { //Sets a flag for an admin user
 } else {
     $approved = FALSE;
 }
+//Sets page title
+echo "<script>document.title = 'ASDF - Edit Details';</script>";
 
 echo "<div id='login_container'><div id='login_panel'>";  //Opens the editing boxes
 echo "<form method='post' action='Scripts/editor.php'>";

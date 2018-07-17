@@ -11,8 +11,9 @@ if ($_SESSION['status'] != '1') { //Checks for Admin user
     exit;
 }
 ?>
-<script> //Sets the navbar link to show which page you're on
+<script> //Sets the navbar link and title to show which page you're on
     document.getElementById("adminLink").className += " active";
+    document.title = "ASDF - Administration";
 </script>
 <div id='login_container'><div id='disclaimers'><h3>Administration Page</h3>
         This is the System Administration page; only Admin-level users can access these functions.<br/>

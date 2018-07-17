@@ -18,6 +18,9 @@ echo "<script> var version = {$version}; </script>";
 ?>
 <link rel="stylesheet" href="CSS/taskboard.css">
 <script>
+    //Sets page title
+    document.title = "ASDF - Home";
+
     function update(sbi) {  //AJAX function to update the task board
         var ajax = new XMLHttpRequest();
         ajax.onreadystatechange = function() {

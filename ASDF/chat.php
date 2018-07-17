@@ -30,8 +30,9 @@ $version = $row['chat'];
 echo "<script>var version = {$version}</script>";
 ?>
 
-<script> //Sets the navbar link to show which page you're on
+<script> //Sets the navbar link and title to show which page you're on
     document.getElementById("chatLink").className += " active";
+    document.title = "ASDF - Chat";
 
     //Listener for message updates
     if(!!window.EventSource) {

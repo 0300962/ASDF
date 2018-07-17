@@ -15,8 +15,9 @@ $version = $row['pbl'];
 //Sets JavaScript variable to be used by Listener
 echo "<script> var version = {$version} </script>";
 ?>
-<script> //Sets the navbar link to show which page you're on
+<script> //Sets the navbar link and title to show which page you're on
     document.getElementById("pblLink").className += " active";
+    document.title = "ASDF - Project Backlog";
 </script>
 <?php
 

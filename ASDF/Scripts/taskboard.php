@@ -36,6 +36,11 @@ $result = mysqli_query($db, $sql);
 
 $currentPBI = 0; //Used to keep track of the PBIs
 
+if (mysqli_num_rows($result) == 0) {
+    echo "<div class='pbi'><div class='sbi'><div class='not_started'>No SBI's to display - No Sprint in Progress!</div></div></div>";
+    exit;
+}
+
 while ($row = mysqli_fetch_array($result)) {
     if ($currentPBI == 0) {                         //First PBI only
         echo "<div class='pbi'><div class='drop-down'><button class='menubutton'>PBI No {$row['pbiNo']}</button><div class='menu-options'>User 
