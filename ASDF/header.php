@@ -88,11 +88,16 @@ include_once "Scripts/connection.php";
             //Gets difference in dates between today and end-date
             $days = date_diff($now, $endDate);
             $days = $days->format('%r%a days');
-            echo "<div id='sprint_info'>Sprint in progress: {$days} left</div>";
+            echo "<div id='sprint_info' class='drop-down'>
+                    <button class='menubutton'>Sprint in progress: {$days} left</button>
+                    <div class='menu-options'>
+                        <a href='sburndown.php'>End Date: {$row['endDate']}</a>
+                    </div>
+                </div>";
         }
 
         echo "<div class='drop-down' id='greeting'>";
         echo "<button class='menubutton'>Welcome {$_SESSION['name']}</button>";
-        echo "<div class='menu-options'><a href='Scripts/login.php'>Logout</a></div>";
+        echo "<div class='menu-options'><a href='Scripts/login.php'>Logout</a></div></div>";
         ?>
     </nav>

@@ -97,7 +97,6 @@ input[type=button]:hover, input[type=submit]:hover, #pbl_button:hover {
 #sprint_info{
     position: absolute;
     right: 15%;
-    overflow-x: auto;
 }
 #greeting {
     position: absolute;

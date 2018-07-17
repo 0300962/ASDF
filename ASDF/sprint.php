@@ -234,7 +234,7 @@ if (isset($_GET['func'])) {
             //Date-picker form to change end date of current Sprint
             $endDate = status($db);
             echo "Current End-Date: {$endDate}<br/><br/>";
-            echo "<form method='post' action='sprint.php?func=4'>
+            echo "<form method='post' action='sprint.php?func=5'>
                 Select New End-Date:<br/>
                     <input type='date' name='date'>
                      <input type='submit' name='newdate' value='Save'>
