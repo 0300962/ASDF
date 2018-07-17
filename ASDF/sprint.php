@@ -36,10 +36,11 @@ if (isset($_GET['func'])) {
     switch ($stage) {
         case 1: //Start a new Sprint
             echo "<link rel='stylesheet' href='CSS/tables.css'>";
-            echo "Select PBIs to tackle in this Sprint. <b>Start at the top of the list.</b>  It's a good idea to take 
-                on one or two more than you expect to complete, just in case things go better than expected.<br/>
-                <input form='pbi' type='submit' name='pickPBIs' value='Next'>";
+            echo "Select PBIs to tackle in this Sprint, and an end-date for this iteration. <b>Start at the top of the
+                list.</b>  It's a good idea to take on one or two more than you expect to complete, just in case things
+                 go better than expected.<br/>";
             echo "<form id='pbi' method='post' action='sprint.php?func=2'>
+                    Last day of this Sprint: <input type='date' name='endDate'>
                     <table><tr><th>PBI User Story (ordered by priority)</th><th>Select?</th></tr>";
             //Gets list of open PBIs
             $sql = "SELECT pbiNo, userStory FROM pbis 
@@ -49,7 +50,8 @@ if (isset($_GET['func'])) {
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<tr><td>{$row['userStory']}</td><td><input type='checkbox' name='pbi{$row['pbiNo']}'></td></tr>";
             }
-            echo "</table></form>";
+            echo "</table></form><br/>";
+            echo "<input form='pbi' type='submit' value='Next'> ";
             echo "<a href='sprint.php'>Back</a>";
             break;
         case 2: //Add SBIs to PBIs
@@ -104,6 +106,22 @@ if (isset($_GET['func'])) {
             //Trims the header off the POST array
             array_shift($pbis);
 
+            //Sets start and end dates for the new Sprint
+            $timestamp = ''.date('Y-m-d');
+            $endDate = filter_var($_POST['endDate'], FILTER_SANITIZE_EMAIL);
+            //Checks number of PBIs at the beginning
+            $sql = "SELECT COUNT(pbiNo) FROM pbis WHERE COMPLETED IS NULL";
+            $result = mysqli_query($db, $sql);
+            $row = mysqli_fetch_assoc($result);
+            $startingTotal = $row['COUNT(pbiNo)'];
+            //Creates new Sprint
+            $sql = "INSERT INTO sprints (startDate, endDate, startingBacklog)
+                    VALUES ('{$timestamp}','{$endDate}','{$startingTotal}')";
+            $result = mysqli_query($db, $sql);
+            if (!$result) {
+                echo "Error: unable to start new Sprint!<br/>";
+            }
+
             for ($i = 0; $i < count($pbis); $i++) {
                 //Gets the selected PBIs
                 $sql = "SELECT userStory FROM pbis WHERE pbiNo = '{$pbis[$i]}';";
@@ -140,7 +158,7 @@ if (isset($_GET['func'])) {
             echo "Are you sure you want to stop the current Sprint? <b>This cannot be undone.</b>  The completed PBIs will be
             archived along with the Sprint statistics, but the existing SBIs will be deleted.  The Project Burndown graph
             will be updated.<br/>";
-            echo "<a href='sprint.php?func4'>Confirm</a><br/>";
+            echo "<a href='sprint.php?func=4'>Confirm</a><br/>";
             echo "<a href='admin.php'>Back</a>";
             break;
         case 4: //Stop a Sprint in progress
@@ -174,7 +192,7 @@ if (isset($_GET['func'])) {
                 }
             }
             //Counts remaining PBIs on the backlog, after this Sprint
-            $sql = "SELECT COUNT(pbiNo) FROM pbis WHERE completed IS NOT NULL;";
+            $sql = "SELECT COUNT(pbiNo) FROM pbis WHERE completed IS NULL;";
             $result = mysqli_query($db, $sql);
             $row = mysqli_fetch_array($result);
             $remaining = $row['COUNT(pbiNo)'];
@@ -188,10 +206,10 @@ if (isset($_GET['func'])) {
                 echo "Sprint performance added to Project history.<br/>";
             }
             //Deletes the Sprint details
-            $sql = "DELETE FROM sbis WHERE *;";
+            $sql = "DELETE FROM sbis;";
             $result = mysqli_query($db, $sql);
             if (!$result) {
-                echo "Error: Could not delete SBI details.";
+                echo "Error: Could not delete SBI details.<br/>";
             } else {
                 echo "Sprint SBIs deleted successfully.<br/>";
             }
@@ -218,7 +236,7 @@ if (isset($_GET['func'])) {
             echo "<form method='post' action='sprint.php?func=4'>
                 Select New End-Date:<br/>
                     <input type='date' name='date'>
-                     <input type='submit' name='newdate'>
+                     <input type='submit' name='newdate' value='Save'>
                  </form>";
             echo "<a href='sprint.php'>Back</a>";
             break;

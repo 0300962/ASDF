@@ -53,7 +53,7 @@ if (isset($_GET['progress'])) { //Checks for incoming SBI number to be progresse
         exit;
     }
     //Forms the timestamp of userID and date as a string
-    $timestamp = ''.$_SESSION['id'].' '.date('Y-M-D');
+    $timestamp = ''.$_SESSION['id'].' '.date('Y-m-d');
     //Adds stamp to SBI
     $sql = "UPDATE sbis SET {$stage} = '{$timestamp}' WHERE sbiNo = {$sbiNo};";
     //Commits the change to the database
