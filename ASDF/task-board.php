@@ -38,7 +38,8 @@ echo "<script> var version = {$version}; </script>";
         <h4>User List</h4>
         <?php  //Retrieves list of User accounts from the database
         $sql = "SELECT initials, colour
-                FROM users";
+                FROM users
+                ORDER BY name ASC";
         $result = mysqli_query($db, $sql);
         while($row = mysqli_fetch_array($result)) {
             //Adds a button for each user to the drop-down menu

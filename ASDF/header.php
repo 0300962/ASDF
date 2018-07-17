@@ -40,7 +40,8 @@ include_once "Scripts/connection.php";
             <div class="menu-options">
                 <?php  //Retrieves list of User accounts from the database
                     $sql = "SELECT userID, name
-                            FROM users";
+                            FROM users
+                            ORDER BY name ASC";
                     $result = mysqli_query($db, $sql);
                     while($row = mysqli_fetch_array($result)) {
                         //Adds a button for each user to the drop-down menu
