@@ -35,7 +35,9 @@ function format_date($date) {
         google.charts.setOnLoadCallback(drawSBIs);
 
         <?php //Gets the total SBIs and dates for the Sprint
-        $sql = "SELECT COUNT(sbiNo), startDate, endDate, SUM(effort) FROM sbis, sprints WHERE backlogTotal IS NULL;";
+        $sql = "SELECT COUNT(sbiNo), startDate, endDate, SUM(effort) 
+                FROM sbis, sprints 
+                WHERE backlogTotal IS NULL;";
         $result = mysqli_query($db, $sql);
         if (!$result) {
             echo "Error: could not retrieve data from database.";
@@ -55,8 +57,8 @@ function format_date($date) {
         $sbiData = "[['Date', 'SBIs', 'Target'],";
         $sbiData .= "[new Date({$start}), {$total}, {$total}],";
         //Builds the list of data for the Effort display
-        $effortData = "[['Date', 'Effort'],";
-        $effortData .= "[new Date({$start}), {$effort}],";
+        $effortData = "[['Date', 'Effort', 'Target'],";
+        $effortData .= "[new Date({$start}), {$effort}, {$effort}],";
 
         $dates = array();
         while ($row = mysqli_fetch_array($result)) {
@@ -92,12 +94,12 @@ function format_date($date) {
 
                 //Adds a row to the data table for each graph
                 $sbiData .= "[new Date({$day}), {$total}, null ],";
-                $effortData .= "[new Date({$day}), {$effort}],";
+                $effortData .= "[new Date({$day}), {$effort}, null ],";
             }
         }
         //Sets the end-date for the Sprint
         $sbiData .= "[new Date($end), null, 0] ]";
-        $effortData .= "[new Date($end), 0] ]";
+        $effortData .= "[new Date($end), null, 0] ]";
         //Prints the data table for JavaScript to access
         echo "var sbiData = {$sbiData};";
         echo "var effortData = {$effortData};";
