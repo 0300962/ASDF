@@ -48,7 +48,7 @@ include 'header.php';
     ?>
     //Calls the Charts API using the pre-set data
     function drawGraph() {
-        //Creates a 'DataTable' from the tabel of data that the charts can then access
+        //Creates a 'DataTable' from the table of data that the charts can then access
         var data = new google.visualization.arrayToDataTable(graphData, false);
         //Sets graph options
         var options = {
