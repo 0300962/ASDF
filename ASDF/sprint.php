@@ -160,7 +160,7 @@ if (isset($_GET['func'])) {
             archived along with the Sprint statistics, but the existing SBIs will be deleted.  The Project Burndown graph
             will be updated.<br/>";
             echo "<a href='sprint.php?func=4'>Confirm</a><br/>";
-            echo "<a href='admin.php'>Back</a>";
+            echo "<a href='administration.php'>Back</a>";
             break;
         case 4: //Stop a Sprint in progress
             //Gets all PBIs in the Sprint into an array
@@ -254,7 +254,7 @@ if (isset($_GET['func'])) {
         echo "<a href='sprint.php?func=3'>Stop Current Sprint</a> ";
         echo "<a href='sprint.php?func=5'>Change end-date</a><br/>";
     }
-    echo "<a href='admin.php'>Back</a>";
+    echo "<a href='administration.php'>Back</a>";
 }
 ?>
     </div>

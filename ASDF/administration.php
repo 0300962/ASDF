@@ -32,7 +32,7 @@ if (isset($_GET['func'])) { //Checks what it's being asked to do
                      User Type: <input type='radio' name='type' value='0' checked> Standard User
                      <input type='radio' name='type' value='1'>Admin User 
                      <input type='submit' value='Add New User'></form>
-                     <a href='admin.php'>Back</a></div>";
+                     <a href='administration.php'>Back</a></div>";
 
             $sql = "SELECT logins.login, logins.status, logins.userID, users.name 
                     FROM logins LEFT JOIN users ON logins.userID = users.userID;";
@@ -127,7 +127,7 @@ if (isset($_GET['func'])) { //Checks what it's being asked to do
                 echo "Clearing the Chat Log will erase all messages from all Users. This <b>cannot</b> be undone.<br/>";
                 echo "<a href='administration.php?func=4&confirm'>Confirm</a> ";
             }
-            echo "<a href='admin.php'>Back</a></div>";
+            echo "<a href='administration.php'>Back</a></div>";
             break;
         case 5: //Change user status
             echo "Working...";
@@ -142,7 +142,7 @@ if (isset($_GET['func'])) { //Checks what it's being asked to do
                 $result = mysqli_query($db, $sql);
                 if (!$result) {
                     echo "Error: could not change user status.";
-                    echo "<a href='admin.php'>Back</a></div>";
+                    echo "<a href='administration.php'>Back</a></div>";
                 } else {
                     echo "<script>location='administration.php?func=1';</script>";
                 }
@@ -222,9 +222,31 @@ if (isset($_GET['func'])) { //Checks what it's being asked to do
         default: //Shouldn't be here
             echo "<script>location='administration.php?func=1';</script>";
     }
-} else {//Shouldn't be here
-    echo "<script>location='administration.php?func=1';</script>";
-}
+} else {
 ?>
+        This is the System Administration page; only Admin-level users can access these functions.<br/>
+        <ul>
+            <li>Sprint Management allows you to start/stop a Sprint or change the end-date of a Sprint that's
+                in-progress.
+            </li>
+            <li>Project Management is where you can change the Project Details page.</li>
+            <li>User Administration lets you add or remove Users, grant Admin privileges, or reset users passwords.</li>
+            <li>Clear Chat Log will erase the chat history, if you need to.</li>
+        </ul>
+        <a href='sprint.php'>Sprint Management</a>
+        <a href='edit.php?project'>Project Management</a>
+        <a href='administration.php?func=1'>User Administration</a>
+        <a href='administration.php?func=4'>Clear Chat Log</a><br/>
+    </div>
+    <br/>
+    <div id="disclaimers">
+        <h3>System Functions</h3>
+        Here you can go back to Setup Mode if you want to change the Database details, export the project
+        data to disk, or delete all project and user data from the system.<br/>
+        <a href='Scripts/setup.php?stage=1'>Setup Mode</a>
+        <a href='administration.php?func=6'>Backup Project Data</a>
+        <a href='administration.php?func=7'>Erase Everything</a><br/>
     </div>
 </div>
+    <?php
+}

@@ -74,7 +74,7 @@ include_once "Scripts/connection.php";
 
         <?php
         if ($_SESSION['status'] == '1') {  // Only shown to Admin users
-            echo "<div class='link' id='adminLink'><a href='admin.php'>Admin</a></div>";
+            echo "<div class='link' id='adminLink'><a href='administration.php'>Admin</a></div>";
         }
 
         //Checks for a Sprint in-progress
