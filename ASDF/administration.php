@@ -50,14 +50,14 @@ if (isset($_GET['func'])) { //Checks what it's being asked to do
                 }
                 if ($row['status'] == 1){ //Used for make/remove admin buttons
                     $status = 'Admin';
-                    $link = "<a href=administration.php?func=5&user={$row['userID']}&demote>Remove Admin</a>";
+                    $link = "<a href=administration.php?func=6&user={$row['userID']}&demote>Remove Admin</a>";
                 } else {
                     $status = 'User';
-                    $link = "<a href=administration.php?func=5&user={$row['userID']}&promote>Make Admin</a>";
+                    $link = "<a href=administration.php?func=6&user={$row['userID']}&promote>Make Admin</a>";
                 }
                 echo "<tr><td>{$row['login']}</td><td>{$name}</td><td>{$status}</td>
                         <td><a href='administration.php?func=3&user={$row['userID']}'>Delete User</a>
-                        {$link}</td></tr>";
+                        {$link} <a href='administration.php?func=4&user={$row['userID']}'>Reset Password</a></td></tr>";
             }
             echo "<tr><td>Total Users =</td><td colspan='3'>{$total}</td></tr></table></div>";
             break;
@@ -110,7 +110,21 @@ if (isset($_GET['func'])) { //Checks what it's being asked to do
             }
             echo "<a href='administration.php?func=1'>Back</a></div>";
             break;
-        case 4: //Clear Chat log
+        case 4: //Clear user password
+            if (isset($_GET['user'])) {
+                echo "Resetting password...<br/>";
+                $user = filter_var($_GET['user'], FILTER_SANITIZE_NUMBER_INT);
+                $sql = "UPDATE logins SET pwhash = NULL WHERE userID = '{$user}';";
+                $result = mysqli_query($db, $sql);
+                if (!$result) {
+                    echo "Error: could not reset user password.";
+                    echo "<a href='administration.php?func=1'>Back</a>";
+                } else { //Redirects to the User List page
+                    echo "<script>location='administration.php?func=1';</script>";
+                }
+            }
+            break;
+        case 5: //Clear Chat log
             if (isset($_GET['confirm'])) {
                 $sql = "DELETE FROM chat;";
                 $result = mysqli_query($db, $sql);
@@ -129,7 +143,7 @@ if (isset($_GET['func'])) { //Checks what it's being asked to do
             }
             echo "<a href='administration.php'>Back</a></div>";
             break;
-        case 5: //Change user status
+        case 6: //Change user status
             echo "Working...";
             if (isset($_GET['user'])) {
                 $user = filter_var($_GET['user'], FILTER_SANITIZE_NUMBER_INT);
@@ -148,7 +162,7 @@ if (isset($_GET['func'])) { //Checks what it's being asked to do
                 }
             }
             break;
-        case 6: //Backup Project Data
+        case 7: //Backup Project Data
             echo "This utility allows you to export all project data (Product Backlog, SBIs and Sprint History) to file;
             this does not delete anything from your system.  PBI, SBI and Sprint History will be stored into one .csv file,
             in that order.<br/>Press the button to proceed. ";
@@ -216,7 +230,7 @@ if (isset($_GET['func'])) { //Checks what it's being asked to do
                 echo "<a href='backup-{$date}.csv'>Download</a></div>";
             }
             break;
-        case 7: // Erase Everything
+        case 8: // Erase Everything except for user accounts
 
             break;
         default: //Shouldn't be here
@@ -236,7 +250,7 @@ if (isset($_GET['func'])) { //Checks what it's being asked to do
         <a href='sprint.php'>Sprint Management</a>
         <a href='edit.php?project'>Project Management</a>
         <a href='administration.php?func=1'>User Administration</a>
-        <a href='administration.php?func=4'>Clear Chat Log</a><br/>
+        <a href='administration.php?func=5'>Clear Chat Log</a><br/>
     </div>
     <br/>
     <div id="disclaimers">
@@ -244,8 +258,8 @@ if (isset($_GET['func'])) { //Checks what it's being asked to do
         Here you can go back to Setup Mode if you want to change the Database details, export the project
         data to disk, or delete all project and user data from the system.<br/>
         <a href='Scripts/setup.php?stage=1'>Setup Mode</a>
-        <a href='administration.php?func=6'>Backup Project Data</a>
-        <a href='administration.php?func=7'>Erase Everything</a><br/>
+        <a href='administration.php?func=7'>Backup Project Data</a>
+        <a href='administration.php?func=8'>Erase Everything</a><br/>
     </div>
 </div>
     <?php
