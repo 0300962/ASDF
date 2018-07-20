@@ -34,7 +34,8 @@ if (isset($_GET['func'])) { //Checks what it's being asked to do
                      <input type='submit' value='Add New User'></form>
                      <a href='admin.php'>Back</a></div>";
 
-            $sql = "SELECT * FROM logins ORDER BY status DESC;";
+            $sql = "SELECT logins.login, logins.status, logins.userID, users.name 
+                    FROM logins LEFT JOIN users ON logins.userID = users.userID;";
             $result = mysqli_query($db, $sql);
             $total = mysqli_num_rows($result);
 
@@ -42,11 +43,8 @@ if (isset($_GET['func'])) { //Checks what it's being asked to do
             echo "<table id='backlog'><tr><th>Login Name</th><th>User Name</th><th>Type</th><th>Actions</th></tr>";
 
             while ($row = mysqli_fetch_assoc($result)) {
-                if ($row['pwhash'] != null) { //Gets names for existing users
-                    $sql2 = "SELECT name FROM users WHERE userID = '{$row['userID']};'";
-                    $result2 = mysqli_query($db, $sql2);
-                    $row2 = mysqli_fetch_assoc($result2);
-                    $name = $row2['name'];
+                if ($row['name'] != null) { //Gets names for existing users
+                    $name = $row['name'];
                 } else { //Sets default for new accounts
                     $name = "New User";
                 }
