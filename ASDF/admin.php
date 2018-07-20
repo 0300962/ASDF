@@ -25,15 +25,15 @@ if ($_SESSION['status'] != '1') { //Checks for Admin user
         </ul>
         <a href='sprint.php'>Sprint Management</a>
         <a href='edit.php?project'>Project Management</a>
-        <a href='#'>User Administration</a>
-        <a href='#'>Clear Chat Log</a><br/>
+        <a href='administration.php?func=1'>User Administration</a>
+        <a href='administration.php?func=4'>Clear Chat Log</a><br/>
     </div><br/>
     <div id="disclaimers">
         <h3>System Functions</h3>
         Here you can go back to Setup Mode if you want to change the Database details, export the project
         data to disk, or delete all project and user data from the system.<br/>
         <a href='Scripts/setup.php?stage=1'>Setup Mode</a>
-        <a href='#'>Backup Project Data</a>
-        <a href='#'>Erase Everything</a><br/>
+        <a href='administration.php?func=5'>Backup Project Data</a>
+        <a href='administration.php?func=6'>Erase Everything</a><br/>
     </div>
 </div>

@@ -8,7 +8,8 @@
 include 'header.php';
 
 if (isset($_POST['msg'])) { //Checks for an incoming message
-    $msg = filter_var($_POST['msg'], FILTER_SANITIZE_STRING);
+    //$msg = filter_var($_POST['msg'], FILTER_SANITIZE_STRING);
+    $msg = addslashes($_POST['msg']);
     $sql = "INSERT INTO chat (msg, sender) VALUES ('{$msg}','{$_SESSION['id']}');";
     $result = mysqli_query($db, $sql);
     if (!$result) {
