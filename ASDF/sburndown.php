@@ -121,7 +121,7 @@ function format_date($date) {
                 height:600,
                 hAxis: {
                     format: 'd/M/yy',
-                    title: 'Date'
+                    title: 'Sprint Date'
                 },
                 legend: {position: 'none'},
                 trendlines: {

@@ -33,7 +33,7 @@ if ($_SESSION['status'] != '1') { //Checks for Admin user
         Here you can go back to Setup Mode if you want to change the Database details, export the project
         data to disk, or delete all project and user data from the system.<br/>
         <a href='Scripts/setup.php?stage=1'>Setup Mode</a>
-        <a href='administration.php?func=5'>Backup Project Data</a>
-        <a href='administration.php?func=6'>Erase Everything</a><br/>
+        <a href='administration.php?func=6'>Backup Project Data</a>
+        <a href='administration.php?func=7'>Erase Everything</a><br/>
     </div>
 </div>
