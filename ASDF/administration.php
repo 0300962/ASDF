@@ -231,10 +231,54 @@ if (isset($_GET['func'])) { //Checks what it's being asked to do
             }
             break;
         case 8: // Erase Everything except for user accounts
-
+            if (isset($_GET['confirm'])) {
+                echo "Working...<br/>";
+                $sql = "DELETE FROM chat;";
+                $result = mysqli_query($db, $sql);
+                if (!$result) {
+                    echo "Error: could not delete Chat.<br/>";
+                } else {
+                    echo "Chat log erased.<br/>";
+                }
+                $sql = "DELETE FROM sbis;";
+                $result = mysqli_query($db, $sql);
+                if (!$result) {
+                    echo "Error: could not delete SBIs.<br/>";
+                } else {
+                    echo "SBIs erased.<br/>";
+                }
+                $sql = "DELETE FROM pbis;";
+                $result = mysqli_query($db, $sql);
+                if (!$result) {
+                    echo "Error: could not delete PBIs.<br/>";
+                } else {
+                    echo "PBIs erased.<br/>";
+                }
+                $sql = "DELETE FROM sprints;";
+                $result = mysqli_query($db, $sql);
+                if (!$result) {
+                    echo "Error: could not delete Sprint history.<br/>";
+                } else {
+                    echo "Sprint history erased.<br/>";
+                }
+                $sql = "DELETE FROM project;";
+                $result = mysqli_query($db, $sql);
+                if (!$result) {
+                    echo "Error: could not delete Project details.<br/>";
+                } else {
+                    echo "Project details erased.<br/>";
+                }
+                echo "Operation complete.  You should now edit the Project Details page for the next project, before adding
+                 PBIs to the backlog.<br/>";
+            } else {
+                echo "This function will delete all project-specific data; User Accounts and Profile Pages will be preserved,
+                      but otherwise the system will be blank, ready for your next project.  This <b>cannot</b> be undone.<br/>";
+                echo "<a href='administration.php?func=8&confirm'>Confirm</a> ";
+            }
+            echo "<a href='administration.php'>Back</a><br/>";
             break;
         default: //Shouldn't be here
-            echo "<script>location='administration.php?func=1';</script>";
+            echo "<script>location='administration.php';</script>";
     }
 } else {
 ?>
