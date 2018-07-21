@@ -45,12 +45,13 @@ if (isset($_REQUEST['login'])) { //Checks that user was trying to login
 
     $pwhash = $row['pwhash'];
     if(password_verify($pw, $pwhash)) { //Checks if the password matches
+        setcookie("Logged-in", time(), time()+86400, "/");
         $_SESSION['logged-in'] = TRUE;
         $_SESSION['status'] = $row['status'];
         $_SESSION['id'] = $row['userID'];
         $id = $row['userID'];
         //Gets user details from database
-        $sql = "SELECT name, initials, colour FROM users WHERE userID = '{$id}'";
+        $sql = "SELECT name, initials, colour FROM users WHERE userID = '{$id}';";
         $result = mysqli_query($db, $sql);
         $row = mysqli_fetch_assoc($result);
 
@@ -64,6 +65,9 @@ if (isset($_REQUEST['login'])) { //Checks that user was trying to login
         } else { //Existing user
             $_SESSION['name'] = $row['name'];
             $_SESSION['initials'] = $row['initials'];
+            //Updates the last-logged-in variable
+            $signal_mode = 'login';
+            include_once 'signaller.php';
             header("Location: ../task-board.php");
         }
     } else {

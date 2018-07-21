@@ -46,6 +46,7 @@ $sql = "CREATE TABLE users (
             initials varchar(4) NULL,
             details varchar (300) NULL,
             colour varchar (7) NULL,
+            lastSeen timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             
             CONSTRAINT PK_Users PRIMARY KEY (userID),
             CONSTRAINT FK_Users_Logins FOREIGN KEY (userID) REFERENCES logins(userID)

@@ -17,9 +17,13 @@ switch ($signal_mode) {
     case 'chat':
         $sql = "UPDATE project SET chat = chat + 1;";
         break;
+    case 'login':
+        $sql = "UPDATE users SET lastSeen = CURRENT_TIMESTAMP WHERE userID = {$_SESSION['id']};";
+        break;
     default:
         echo "Error: ensure $signal_mode is set prior to inclusion";
 }
+
 //Increases version-number in database following a change
 $result = mysqli_query($db, $sql);
 if (!$result) {

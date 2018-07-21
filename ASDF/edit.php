@@ -73,16 +73,16 @@ if (isset($_GET['profile'])) { //User Login details
                 echo "Administrator: <input type='radio' name='status' value='1' checked>Yes";
                 echo "<input type='radio' name='status' value='0'>No<br/>";
             } else {
-                echo "Administrator: <input type='radio' name='status' value='1' checked readonly>Yes";
-                echo "<input type='radio' name='status' value='0' readonly>No<br/>";
+                echo "Administrator: <input type='radio' name='status' value='1' checked>Yes";
+                echo "<input type='radio' name='status' value='0' disabled>No<br/>";
             }
         } else { //Normal user account being edited
             if ($approved) {
                 echo "Administrator: <input type='radio' name='status' value='1'>Yes";
                 echo "<input type='radio' name='status' value='0' checked>No";
             } else { //Normal users may not make themselves Admin
-                echo "Administrator: <input type='radio' name='status' value='1' readonly>Yes";
-                echo "<input type='radio' name='status' value='0' checked readonly>No";
+                echo "Administrator: <input type='radio' name='status' value='1' disabled>Yes";
+                echo "<input type='radio' name='status' value='0' checked>No";
             }
         }
         echo "<br/><br/><input type='submit' name='update' value='Save'> <a href='profile.php?user={$profile}'>Back</a>";

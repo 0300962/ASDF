@@ -9,7 +9,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-if (!$_SESSION['logged-in']) {
+if (!$_SESSION['logged-in'] OR !isset($_COOKIE['Logged-in'])) {
     header('Location: index.php');
     exit;
 }

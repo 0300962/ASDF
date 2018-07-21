@@ -27,7 +27,8 @@ include 'header.php';
             }
             echo "<h2>{$row['name']}</h2>";
             echo "<h4>{$row['initials']}<div id='colour_box' style='background-color: {$row['colour']}'></div></h4>";
-            echo "<h3>User Details</h3>{$row['details']}";
+            echo "<h3>User Details</h3>{$row['details']}<br/>";
+            echo "Last logged-in: {$row['lastSeen']}";
 
             //Provides the Edit icon for Admin or account owners
             if (($_SESSION['status'] == '1') OR ($_SESSION['id'] == $user)) {
