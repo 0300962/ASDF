@@ -35,7 +35,9 @@ if (isset($_GET['func'])) { //Checks what it's being asked to do
                      <a href='administration.php'>Back</a></div>";
 
             $sql = "SELECT logins.login, logins.status, logins.userID, users.name 
-                    FROM logins LEFT JOIN users ON logins.userID = users.userID;";
+                    FROM logins 
+                    LEFT JOIN users ON logins.userID = users.userID
+                    ORDER BY logins.status DESC;";
             $result = mysqli_query($db, $sql);
             $total = mysqli_num_rows($result);
 

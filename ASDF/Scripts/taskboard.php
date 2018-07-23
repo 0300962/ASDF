@@ -46,6 +46,17 @@ while ($row = mysqli_fetch_array($result)) {
         echo "<div class='pbi'><div class='drop-down'><button class='menubutton'>PBI No {$row['pbiNo']}</button><div class='menu-options'>User 
                 Story:<br/>{$row['userStory']}<br/><br/>Acceptance Criteria:<br/>{$row['acceptance']}</div></div>";
     } else if ($row['pbiNo'] != $currentPBI) {      //Checks for a new PBI
+        if ($_SESSION['status'] == '1') { //Gives each PBI a pop-up form to add a new SBI for Admin users
+            echo "<div class='drop-down'><button class='menubutton'>Add a new SBI</button>
+                        <div class='menu-options'>";
+            echo "<form id='form{$currentPBI}'>Sub-task Description:<br/>
+                        <textarea id='task{$currentPBI}' maxlength='300' rows='3' cols='30' placeholder='Enter sub-task details' required></textarea>
+                        Effort: <input type='number' id='effort{$currentPBI}' min='1' max='32' required> 
+                        <button onclick='newSBI({$currentPBI})'>Save</button>
+                  </form>";
+            echo "</div></div>";
+        }
+
         echo "</div>";                              //Closes previous PBI
         echo "<div class='pbi'><div class='drop-down'><button class='menubutton'>PBI No {$row['pbiNo']}</button><div class='menu-options'>User 
                 Story:<br/>{$row['userStory']}<br/><br/>Acceptance Criteria:<br/>{$row['acceptance']}</div></div>";
@@ -89,6 +100,19 @@ while ($row = mysqli_fetch_array($result)) {
             }
         }
     }
+
     echo "</div>";//Closes the SBI
     $currentPBI = $row['pbiNo'];
 }
+if ($_SESSION['status'] == '1') { //Gives each PBI a pop-up form to add a new SBI for Admin users
+    echo "<div class='drop-down'><button class='menubutton'>Add a new SBI</button>
+                        <div class='menu-options'>";
+    echo "<form id='form{$currentPBI}'>Sub-task Description:<br/>
+                        <textarea id='task{$currentPBI}' maxlength='300' rows='3' cols='30' placeholder='Enter sub-task details' required></textarea>
+                        Effort: <input type='number' id='effort{$currentPBI}' min='1' max='32' required> 
+                        <button onclick='newSBI({$currentPBI})'>Save</button>
+                  </form>";
+    echo "</div></div>";
+}
+
+echo "</div>";                              //Closes final PBI

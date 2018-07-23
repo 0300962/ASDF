@@ -21,7 +21,7 @@ echo "<script> var version = {$version}; </script>";
     //Sets page title
     document.title = "ASDF - Home";
 
-    function update(sbi) {  //AJAX function to update the task board
+    function update(sbi) {  //Ajax function to update the task board
         var ajax = new XMLHttpRequest();
         ajax.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -30,6 +30,28 @@ echo "<script> var version = {$version}; </script>";
         };
         ajax.open("GET", "Scripts/taskboard.php", true);
         ajax.send();
+    }
+
+    function newSBI(pbi) { //Ajax function add a new SBI
+        var ajax = new XMLHttpRequest();
+        var parent = pbi;
+        var taskName = "task"+parent;
+        var task = document.getElementById(taskName).value;
+        var effortName = "effort"+parent;
+        var effort = document.getElementById(effortName).value;
+
+        ajax.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log("SBI saved OK");
+            }
+        };
+        //Sends the form data to the SBI script
+        ajax.open("POST", "Scripts/addSBI.php", true);
+        ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        var request = "pbi="+parent+"&task="+task+"&effort="+effort+"&tb";
+        ajax.send(request);
+        //Clears the form once the table is updated
+        document.getElementById("form"+parent).reset();
     }
 </script>
 
