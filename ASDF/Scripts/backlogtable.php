@@ -9,6 +9,10 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+if (!$_SESSION['logged-in'] OR !isset($_COOKIE['Logged-in'])) {
+    header('Location: index.php');
+    exit;
+}
     include_once 'connection.php';
 
     //Checks for a Sprint in-progress

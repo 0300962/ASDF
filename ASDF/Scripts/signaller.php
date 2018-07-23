@@ -5,6 +5,10 @@
  * Date: 30-Jun-18
  * Time: 3:08 PM
  */
+if (!$_SESSION['logged-in'] OR !isset($_COOKIE['Logged-in'])) {
+    header('Location: ..\index.php');
+    exit;
+}
 
 //Checks which page included this script
 switch ($signal_mode) {

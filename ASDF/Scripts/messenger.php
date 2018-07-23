@@ -5,6 +5,11 @@
  * Date: 22/06/2018
  * Time: 12:58
  */
+
+if (!$_SESSION['logged-in'] OR !isset($_COOKIE['Logged-in'])) {
+    header('Location: ..\index.php');
+    exit;
+}
 ?>
 <script>
     var version = 1;

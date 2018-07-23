@@ -10,10 +10,10 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-/*if (!$_SESSION['logged-in']) {
-    header('Location: index.php');
+if (!$_SESSION['logged-in'] OR !isset($_COOKIE['Logged-in'])) {
+    header('Location: ..\index.php');
     exit;
-}*/
+}
 
 if (isset($_GET['up'])) {
     $pbi = filter_var($_GET['up'], FILTER_SANITIZE_NUMBER_INT);

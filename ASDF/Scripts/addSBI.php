@@ -9,6 +9,10 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+if (!$_SESSION['logged-in'] OR !isset($_COOKIE['Logged-in'])) {
+    header('Location: index.php');
+    exit;
+}
 if ($_SESSION['status'] != '1') { //Checks for Admin user
     header('Location: ../index.php');
     exit;

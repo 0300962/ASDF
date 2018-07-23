@@ -10,8 +10,8 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-if (!$_SESSION['logged-in']) {
-    header('Location: index.php');
+if (!$_SESSION['logged-in'] OR !isset($_COOKIE['Logged-in'])) {
+    header('Location: ..\index.php');
     exit;
 }
 //Gets the current SBI from the database

@@ -8,7 +8,7 @@
 
 include_once 'header.php';
 
-if ($_SESSION['status'] != '1') { //Checks for Admin user
+if (!$_SESSION['logged-in'] OR !isset($_COOKIE['Logged-in'])) {
     header('Location: index.php');
     exit;
 }
