@@ -169,7 +169,7 @@ if (isset($_GET['func'])) { //Checks what it's being asked to do
             this does not delete anything from your system.  PBI, SBI and Sprint History will be stored into one .csv file,
             in that order.<br/>Press the button to proceed. ";
             echo "<a href='administration.php?func=6&proceed'>Continue</a> ";
-            echo "<a href='administration.php?func=1'>Back</a><br/>";
+            echo "<a href='administration.php'>Back</a><br/>";
 
             if(isset($_GET['proceed'])) {
                 $sql = "SELECT * FROM pbis ORDER BY completed, priority;";

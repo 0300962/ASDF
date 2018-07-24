@@ -41,7 +41,7 @@ if (isset($_GET['func'])) {
                 list.</b>  It's a good idea to take on one or two more than you expect to complete, just in case things
                  go better than expected.<br/>";
             echo "<form id='pbi' method='post' action='sprint.php?func=2'>
-                    Last day of this Sprint: <input type='date' name='endDate'>
+                    Last day of this Sprint: <input type='date' name='endDate' required>
                     <table><tr><th>PBI User Story (ordered by priority)</th><th>Select?</th></tr>";
             //Gets list of open PBIs
             $sql = "SELECT pbiNo, userStory FROM pbis 

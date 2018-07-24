@@ -47,7 +47,7 @@ if (!$_SESSION['logged-in'] OR !isset($_COOKIE['Logged-in'])) {
 
     while($row = mysqli_fetch_array($result)) {
         //Checks if the PBI is completed or not
-        if ($row{'completed'} != NULL) {
+        if ($row['completed'] != NULL) {
             $done = "class='completed'";
         } else {
             $done = '';
@@ -55,7 +55,7 @@ if (!$_SESSION['logged-in'] OR !isset($_COOKIE['Logged-in'])) {
         //Populates the table row for this PBI
         echo "<tr {$done}><td>{$row['userStory']}</td><td>{$row['acceptance']}</td><td class='controls'>Current Priority:{$row['priority']}  ";
         //Adds Up and Down buttons if there's not a Sprint in progress
-        if (!$liveSprint && ($_SESSION['status'] == '1')){
+        if (!$liveSprint && ($_SESSION['status'] == '1') && ($row['completed'] == null)){
             echo "<a class='edit_button' href='edit.php?pbi={$row['pbiNo']}'><i class='material-icons'>settings</i></a><br/>";
             echo "<a href='Scripts/priority.php?up={$row['pbiNo']}'>Move Up</a><a href='Scripts/priority.php?down={$row['pbiNo']}'>Move Down</a></td>";
         } else {

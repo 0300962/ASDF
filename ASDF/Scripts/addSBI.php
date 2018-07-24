@@ -36,18 +36,15 @@ if (!isset($_POST['pbi'])) { //Checks for incoming form data from Sprint Admin p
         echo $sql;
         print_r($_POST);
     } else {
-        if (isset($_POST['tb'])) { //New SBI has come from the Task Board
-            $signal_mode = 'tb';
-            include 'signaller.php'; //Updates the taskboard revision
-        } else {
-            //Gets the existing SBIs for each PBI
-            $sql = "SELECT sbiNo, task, effort FROM sbis WHERE pbiNo = '{$pbi}' ORDER BY sbiNo ASC;";
-            $result2 = mysqli_query($db, $sql);
-            //Populates the SBI list on the Sprint Admin page
-            while ($row2 = mysqli_fetch_assoc($result2)) {
-                echo "<div class='sbi'>SBI Number: {$row2['sbiNo']} Effort: <span class='effortTotal'>{$row2['effort']}</span><br/>{$row2['task']}</div>";
-                echo "<div class='spacer'></div>";
-            }
+        $signal_mode = 'tb';
+        include 'signaller.php'; //Updates the taskboard revision
+        //Gets the existing SBIs for each PBI
+        $sql = "SELECT sbiNo, task, effort FROM sbis WHERE pbiNo = '{$pbi}' ORDER BY sbiNo ASC;";
+        $result2 = mysqli_query($db, $sql);
+        //Populates the SBI list on the Sprint Admin page
+        while ($row2 = mysqli_fetch_assoc($result2)) {
+            echo "<div class='sbi'>SBI Number: {$row2['sbiNo']} Effort: <span class='effortTotal'>{$row2['effort']}</span><br/>{$row2['task']}</div>";
+            echo "<div class='spacer'></div>";
         }
     }
 }
