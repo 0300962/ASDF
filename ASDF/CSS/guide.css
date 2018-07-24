@@ -6,7 +6,8 @@
     width: 100%;
     text-align: left;
     margin-bottom: 5px;
-
+    margin-top: 5px;
+    font-size: 1.1em;
 }
 .guide {
     display: none;
