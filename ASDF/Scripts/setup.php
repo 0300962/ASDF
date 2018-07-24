@@ -79,7 +79,7 @@ switch ($_GET['stage']) {
             ASDF system and let you let you set up your team and the project they'll be working on.<br/>
             The first step is to connect to your MySQLi database; if you don't have a MySQLi database server 
             yet, then you need to set that up first- go do that and then come back here.  We recommend 
-            something like WAMP or MAMP, but anything using <b>MySQLi</b> should be fine.<br/>
+            something like WAMP or MAMP, but anything using <b>MySQL</b> should be fine.<br/>
             Ensure that you have configured a user account within the database management software, this is the
             account that ASDF will use to access and store your data.<br/>";
         echo "<a href='setup.php?stage=2'>Let's get started...</a>";
@@ -114,7 +114,7 @@ switch ($_GET['stage']) {
             echo "<input type='hidden' name='host' value='{$host}'>";
             echo "<input type='hidden' name='user' value='{$user}'>";
             echo "<input type='hidden' name='pw' value='{$pw}'>";
-            echo "<input name='database' type='text' placeholder='Optional - database name'>";
+            echo "<input name='database' type='text' placeholder='Optional - database name'> ";
             echo "<input type='submit' value='Next Step...'></form>";
         } else { //Database connection did not work
             echo "Database connection unsuccessful; please check and try again.";
