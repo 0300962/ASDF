@@ -1,0 +1,16 @@
+.chapter {
+    border: none;
+    outline: none;
+    padding: 5px;
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 5px;
+
+}
+.guide {
+    display: none;
+}
+.chapter:hover, .open {
+    background-color: lightsteelblue;
+}
