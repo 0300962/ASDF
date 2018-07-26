@@ -24,25 +24,31 @@ include 'header.php';
             $sql = "SELECT * FROM sprints WHERE backlogTotal IS NOT NULL ORDER BY sprintNo ASC;";
             $result = mysqli_query($db, $sql);
             //Builds the list of data
-            $graphData = "[['Date', 'PBIs at End', { role: 'annotation' }],";
-            while ($row = mysqli_fetch_array($result)) {
-                //Breaks the date down into two strings and an integer (months)
-                $y = substr($row['endDate'], 0, 5);
-                $m = (int)substr($row['endDate'], 5, 2);
-                $d = substr($row['endDate'], 7);
-                //Decrements the months value to match JavaScripts 0-11 numbering.
-                $m--;
-                //Rebuilds the date stamp
-                $date = $y.$m.$d;
-                $date = new DateTime($date);
-                //Re-formats the date stamp to be understood by Google Charts, from YYYY-mm-dd to Y,m,d
-                $date = date_format($date, 'Y,m,d');
-                //Adds the row to the data table for the graph
-                $graphData .= "[new Date({$date}), {$row['backlogTotal']},'Sprint {$row['sprintNo']}' ],";
+            if (mysqli_num_rows($result) > 0) {
+                $graphData = "[['Date', 'PBIs at End', { role: 'annotation' }],";
+                while ($row = mysqli_fetch_array($result)) {
+                    //Breaks the date down into two strings and an integer (months)
+                    $y = substr($row['endDate'], 0, 5);
+                    $m = (int)substr($row['endDate'], 5, 2);
+                    $d = substr($row['endDate'], 7);
+                    //Decrements the months value to match JavaScripts 0-11 numbering.
+                    $m--;
+                    //Rebuilds the date stamp
+                    $date = $y.$m.$d;
+                    $date = new DateTime($date);
+                    //Re-formats the date stamp to be understood by Google Charts, from YYYY-mm-dd to Y,m,d
+                    $date = date_format($date, 'Y,m,d');
+                    //Adds the row to the data table for the graph
+                    $graphData .= "[new Date({$date}), {$row['backlogTotal']},'Sprint {$row['sprintNo']}' ],";
+                }
+                //Trims the last comma and closes the list
+                $graphData = chop($graphData,",");
+                $graphData .= "]";
+            } else { //Displays feedback rather than graph error to user
+                $graphData = "";
+                echo "</script><br/><div id='disclaimers'>No previous Sprints were found.<script>";
             }
-            //Trims the last comma and closes the list
-            $graphData = chop($graphData,",");
-            $graphData .= "]";
+
             //Prints the data table for JavaScript to access
             echo "var graphData = {$graphData};";
     ?>
