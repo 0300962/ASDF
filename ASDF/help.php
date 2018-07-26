@@ -16,17 +16,20 @@ include 'header.php';
         var i;
         for (i = 0; i < chapters.length; i++) {
             chapters[i].addEventListener("click", function () {
-                this.classList.toggle("open");
-
-                var guide = this.nextElementSibling;
-                if (guide.style.display === "block") {
-                    guide.style.display = "none";
-                } else {
-                    guide.style.display = "block";
+                var chapters = document.getElementsByClassName("chapter");
+                var i;
+                for (i = 0; i < chapters.length; i++) {
+                    chapters[i].nextElementSibling.style.display = "none";
+                    chapters[i].classList.toggle("open", false);
                 }
+                this.nextElementSibling.style.display = "block";
+                this.classList.toggle("open", true);
             });
         }
     }
+
+
+
 </script>
     <link rel="stylesheet" href="CSS/guide.css">
 <br/>
@@ -34,14 +37,15 @@ include 'header.php';
 <h3>Help</h3>
     <h4>System Requirements</h4>
     <ul>
-        <li>PHP version 5.x or 7.2 tested</li>
+        <li>PHP version 5.6, or 7.2 tested</li>
         <li>MySQL database server</li>
         <li>HTML5-compliant browser with cookies enabled</li>
         <li>1920x1080 full-colour monitor recommended</li>
     </ul>
     For more information regarding Scrum, see xxx, or for Agile in general, why not try xxx.
 </div><br/>
-<div id="disclaimers">
+<div id="sections">
+<div id="section">
     <h3>FAQs</h3>
     <button class="chapter">How do I use the system?</button>
     <div class="guide">
@@ -105,5 +109,5 @@ include 'header.php';
     <div class="guide">
     You're welcome to get in touch at xxx.</div>
 </div>
-
+</div>
 <?php

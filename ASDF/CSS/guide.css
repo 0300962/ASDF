@@ -12,12 +12,23 @@
     margin-bottom: 5px;
     margin-top: 5px;
     font-size: 1.1em;
+    border-radius: 2px;
 }
 .guide {
     display: none;
 }
 .chapter:hover, .open {
     background-color: lightsteelblue;
+}
+.term {
+    background-color: #fcff7b;
+}
+.admin {
+    border: 1px solid darkgrey;
+    border-radius: 5px;
+    background-color: lightsteelblue;
+    margin: 5px;
+    padding: 5px;
 }
 
 #intro {
@@ -52,6 +63,7 @@
 #sections > button:hover, #sections > button.active {
     background-color: #2fb9b9;
 }
+
 @media (max-width: 1150px) {
     #sections {
         width: 1000px;

@@ -45,7 +45,10 @@ if (isset($_REQUEST['login'])) { //Checks that user was trying to login
 
     $pwhash = $row['pwhash'];
     if(password_verify($pw, $pwhash)) { //Checks if the password matches
+        //Sets a cookie on the user's system to log-out after 24hrs
         setcookie("Logged-in", time(), time()+86400, "/");
+        //Manually forces the cookie into the superglobal  (otherwise not updated until next page refresh)
+        $_COOKIE['Logged-in'] = time();
         $_SESSION['logged-in'] = TRUE;
         $_SESSION['status'] = $row['status'];
         $_SESSION['id'] = $row['userID'];
