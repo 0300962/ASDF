@@ -11,13 +11,13 @@ include 'header.php';
     document.getElementById("guide").className += " active";
     document.title = "ASDF - User Guide";
 
-    window.onload = function() {
+    window.onload = function() { //Adds listeners to each chapter on the page
         var chapters = document.getElementsByClassName("chapter");
         var i;
         for (i = 0; i < chapters.length; i++) {
             chapters[i].addEventListener("click", function () {
                 this.classList.toggle("open");
-
+                //Opens or closes the chapter when clicked
                 var guide = this.nextElementSibling;
                 if (guide.style.display === "block") {
                     guide.style.display = "none";
@@ -26,11 +26,32 @@ include 'header.php';
                 }
             });
         }
+        //Clicks the first chapter as default
         document.getElementById("top").click();
+    };
+    //Changes guide sections
+    function changer(choice) {
+        var sections = document.getElementsByClassName("section");
+        var i;
+        var buttn = 'button_'+choice;
+        //Hides all sections of the guide
+        for (i = 0; i < sections.length; i++) {
+            sections[i].style.display = "none";
+        }
+        document.getElementById("button_intro").className = "";
+        document.getElementById("button_how_to").className = "";
+        document.getElementById("button_page_by_page").className = "";
+        //Unhides only the chosen one, highlights the button
+        document.getElementById(choice).style.display = "block";
+        document.getElementById(buttn).className += " active";
     }
 </script><br/>
 <link rel="stylesheet" href="CSS/guide.css">
-<div id="disclaimers">
+<div id="sections">
+    <button id='button_intro' onclick="changer('intro')">What is Agile?</button>
+    <button id='button_how_to' onclick="changer('how_to')">How to use ASDF?</button>
+    <button id='button_page_by_page' onclick="changer('page_by_page')">Page Guide</button>
+<div class="section" id="intro">
 <h3>User Guide - What is Agile Development?</h3>
     <button class="chapter" id="top">Agile means reacting to change</button>
     <div class="guide">
@@ -137,8 +158,8 @@ include 'header.php';
     <p>Once the Product Backlog has been updated, all that’s left is to take a break, recharge your batteries, and start
     planning the next Sprint.</p>
     </div>
-</div><br/>
-<div id="disclaimers">
+</div>
+<div class="section" id="how_to">
     <h3>How do I use ASDF?</h3>
     If you’ve made it this far then you’re doing something right!<br/>
     ASDF is designed to help with using the Scrum process.  It doesn’t replace your existing messaging, document control,
@@ -290,8 +311,8 @@ include 'header.php';
             you're in the middle of a Sprint) to a .csv file for safekeeping.  Alternatively, 'Erase Everything' will
             delete everything except for the User accounts, leaving the system blank and ready for the next project. </p>
     </div>
-</div><br/>
-<div id="disclaimers">
+</div>
+<div class="section" id="page_by_page">
     <h3>Page-by-page</h3>
     A quick run-down on what the different parts of ASDF do.
     <button class="chapter">General</button>
@@ -370,4 +391,5 @@ include 'header.php';
 
         Erase
     </div>
+</div>
 </div>
