@@ -16,14 +16,14 @@ include 'header.php';
         var i;
         for (i = 0; i < chapters.length; i++) {
             chapters[i].addEventListener("click", function () {
-                this.classList.toggle("open");
-                //Opens or closes the chapter when clicked
-                var guide = this.nextElementSibling;
-                if (guide.style.display === "block") {
-                    guide.style.display = "none";
-                } else {
-                    guide.style.display = "block";
+                var chapters = document.getElementsByClassName("chapter");
+                var i;
+                for (i = 0; i < chapters.length; i++) {
+                    chapters[i].nextElementSibling.style.display = "none";
+                    chapters[i].classList.toggle("open");
                 }
+                this.nextElementSibling.style.display = "block";
+                this.classList.toggle("open");
             });
         }
         //Clicks the first chapter as default
