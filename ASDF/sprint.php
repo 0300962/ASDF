@@ -62,7 +62,9 @@ if (isset($_GET['func'])) {
             Backlog Items (or SBIs), and should be small, independent tasks, not normally taking more than one day to
             complete.  Give an indication of the effort required to complete the task- consider using something like
             1/2/4/8 rather than absolute hours. Keep an eye on the total amount of effort you've estimated for this
-            Sprint.  Your current total is <span id="totalEffort">0</span> units of effort. <a href='task-board.php'>Go to Task Board</a>
+            Sprint.  Your current total is <span id="totalEffort">0</span> units of effort.
+            <button onclick="checkTotal()">Refresh</button> <br/>
+             <a href='task-board.php'>Go to Task Board</a>
             </div>
             <script>
                 function checkTotal() { //Counts the total Effort assigned so far and updates information at top of page
