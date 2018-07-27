@@ -63,6 +63,11 @@ if (isset($_GET['profile'])) { //User Login details
         if (mysqli_num_rows($result) != 1) {
             echo "Error retrieving details from database.";
         }
+        if (isset($_GET['new'])) { //Checks for a new user
+            echo "Select a password to use to login to ASDF. The next time you login, you will be asked for some profile
+             information too.<br/>";
+            echo "<input type=hidden name='new' value='true'>";
+        }
         echo "<input type='hidden' name='id' value='{$profile}'>";
         echo "<input type=hidden name='mode' value='update_profile'>";
         echo "Login: <input type='text' name='login' value='{$row['login']}' maxlength='128' required readonly><br/><br/>";
@@ -85,7 +90,12 @@ if (isset($_GET['profile'])) { //User Login details
                 echo "<input type='radio' name='status' value='0' checked>No";
             }
         }
-        echo "<br/><br/><input type='submit' name='update' value='Save'> <a href='profile.php?user={$profile}'>Back</a>";
+        echo "<br/><br/><input type='submit' name='update' value='Save'> ";
+        if (isset($_GET['welcome'])) { //Directs new users to log out again
+            echo "<a href='Scripts/login.php'>Let's login again...</a>";
+        } else {
+            echo "<a href='profile.php?user={$profile}'>Back</a>";
+        }
         echo "</form>";
     } else {  //Unauthorised user
         echo "<script type='text/javascript'> location = 'edit.php?error=0'</script>";
@@ -113,7 +123,12 @@ if (isset($_GET['profile'])) { //User Login details
         echo "Initials: <input type='text' name='initials' value='{$row['initials']}' maxlength='4' required><br/>";
         echo "Details: <br/><textarea name='details' maxlength='300' rows='8' cols='70'>{$row['details']}</textarea><br/>";
         echo "Colour: <input type='color' name='colour' value='{$row['colour']}'><br/><br/>";
-        echo "<input type='submit' name='update' value='Save'>  <a href='profile.php?user={$user}'>Back</a>";
+        echo "<input type='submit' name='update' value='Save'>  ";
+        if (isset($_GET['welcome'])) { //Directs new users to the Help section
+            echo "<a href='guide.php'>Let's get started...</a>";
+        } else {
+            echo "<a href='profile.php?user={$user}'>Back</a>";
+        }
         echo "</form>";
     } else {  //Unauthorised user
         echo "<script type='text/javascript'> location = 'edit.php?error=0'</script>";

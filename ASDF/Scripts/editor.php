@@ -34,7 +34,7 @@ include_once 'connection.php';
 
 switch ($_POST['mode']) {
     case 'update_profile':  //Password and status changes
-        $src = "profile={$_POST['id']}";
+
         $userID = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
         $pw = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
         $pw2 = filter_var($_POST['password2'], FILTER_SANITIZE_STRING);
@@ -46,13 +46,19 @@ switch ($_POST['mode']) {
         //Securely encrypts the password
         $pwhash = password_hash($pw, PASSWORD_DEFAULT);
 
+        //Checks for a new or existing user to point them to the user guide
+        if (isset($_POST['new'])) {
+            $src = "profile={$userID}&welcome";
+        } else {
+            $src = "profile={$userID}";
+        }
+
         $sql = "UPDATE logins SET pwhash = '{$pwhash}', status = '{$status}'
                 WHERE userID = '{$userID}';";
         //Submits any changes and returns to Edit page
         send($sql, $db, $src);
         break;
     case 'user':  //User details changes
-        $src = "user={$_POST['id']}";
         $userID = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
         $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
         $initials = filter_var($_POST['initials'], FILTER_SANITIZE_STRING);
@@ -67,11 +73,13 @@ switch ($_POST['mode']) {
         if (($red <= 33) AND ($blue <= 33) AND ($green <= 33) OR (($red + $blue + $green) <= 150)) {
             $colour = '#333333'; //Dark grey
         }
-
+        //Checks for a new or existing user to point them to the user guide
         if (isset($_POST['new'])) {
             $newUser = TRUE;
+            $src = "user={$_POST['id']}&welcome";
         } else {
             $newUser = FALSE;
+            $src = "user={$_POST['id']}";
         }
         //Checks data isn't too long for the database; shouldn't be possible
         if ((strlen($name) > 50) OR (strlen($initials) > 4) OR (strlen($details) > 300)) {

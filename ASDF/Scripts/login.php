@@ -39,7 +39,7 @@ if (isset($_REQUEST['login'])) { //Checks that user was trying to login
         $_SESSION['name'] = 'Set Password';
         $_SESSION['initials'] = 'ABCD';
         //Sends user to the edit function
-        header("Location: ../edit.php?profile={$row['userID']}&user={$row['userID']}");
+        header("Location: ../edit.php?profile={$row['userID']}&user={$row['userID']}&new");
         exit;
     }
 
