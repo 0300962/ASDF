@@ -270,6 +270,14 @@ if (isset($_GET['func'])) { //Checks what it's being asked to do
                 } else {
                     echo "Project details erased.<br/>";
                 }
+                //Resets the counters for each table
+                $sql = "ALTER TABLE sbis AUTO_INCREMENT = 1;";
+                $result = mysqli_query($db, $sql);
+                $sql = "ALTER TABLE pbis AUTO_INCREMENT = 1;";
+                $result = mysqli_query($db, $sql);
+                $sql = "ALTER TABLE sprints AUTO_INCREMENT = 1;";
+                $result = mysqli_query($db, $sql);
+
                 echo "Operation complete.  You should now edit the Project Details page for the next project, before adding
                  PBIs to the backlog.<br/>";
             } else {
