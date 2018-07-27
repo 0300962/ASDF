@@ -34,7 +34,6 @@ include_once 'connection.php';
 
 switch ($_POST['mode']) {
     case 'update_profile':  //Password and status changes
-
         $userID = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
         $pw = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
         $pw2 = filter_var($_POST['password2'], FILTER_SANITIZE_STRING);
@@ -136,7 +135,20 @@ switch ($_POST['mode']) {
             error(3, $src);
         }
 
-        $sql = "UPDATE project SET title = '{$title}', details = '{$details}', links = '{$links}'";
+        $sql = "UPDATE project SET title = '{$title}', details = '{$details}', links = '{$links}';";
+        //Submits any changes
+        send($sql, $db, $src);
+        break;
+    case 'newproject': //New project information
+        $src = "project";
+        $title = filter_var($_POST['title'], FILTER_SANITIZE_STRING);
+        $details = filter_var($_POST['details'], FILTER_SANITIZE_STRING);
+        $links = addslashes($_POST['links']);
+        if ((strlen($title) > 30) OR (strlen($details) > 500) OR (strlen($links) > 300)) {
+            error(3, $src);
+        }
+        $sql = "INSERT INTO project (title, details, links) 
+                VALUES ('{$title}', '{$details}', '{$links}');";
         //Submits any changes
         send($sql, $db, $src);
         break;

@@ -18,16 +18,17 @@ include 'header.php';
     <?php
         $sql = "SELECT * FROM project;";
         $result = mysqli_query($db, $sql);
-        $row = mysqli_fetch_array($result);
-        if (!$row) {
-            echo "Error! Unable to retrieve project details from database.";
-            exit;
+
+        if (mysqli_num_rows($result) == 0) {
+            echo "Error! Unable to retrieve project details from database.<br/>";
+        } else {
+            $row = mysqli_fetch_array($result);
+            echo "<h2>{$row['title']}</h2>";
+            echo $row['details'];
+            echo "<h3>Links and Reference</h3>";
+            echo $row['links'];
+            echo "<br/>";
         }
-        echo "<h2>{$row['title']}</h2>";
-        echo $row['details'];
-        echo "<h3>Links and Reference</h3>";
-        echo $row['links'];
-        echo "<br/>";
         //Provides the Edit icon for Admin or account owners
         if ($_SESSION['status'] == '1') {
             echo "<a class='profile_edit' href='edit.php?project'><i class='material-icons'>settings</i></a>";

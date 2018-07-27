@@ -180,8 +180,10 @@ if (isset($_GET['profile'])) { //User Login details
     $row = mysqli_fetch_assoc($result);
     if (mysqli_num_rows($result) != 1) {
         echo "Error retrieving details from database.";
+        echo "<input type=hidden name='mode' value='newproject'>";
+    } else {
+        echo "<input type=hidden name='mode' value='project'>";
     }
-    echo "<input type=hidden name='mode' value='project'>";
     echo "Project Title: <input type='text' name='title' value='{$row['title']}' maxlength='30' required><br/>";
     echo "Project Details:<br/><textarea name='details' maxlength='500' rows='8' cols='70'>{$row['details']}</textarea><br/>";
     echo "Project Links:<br/><textarea name='links' maxlength='500' rows='8' cols='70'>{$row['links']}</textarea><br/>";

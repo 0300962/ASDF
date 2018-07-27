@@ -141,7 +141,7 @@ if (isset($_GET['func'])) { //Checks what it's being asked to do
                 }
             } else {
                 echo "Clearing the Chat Log will erase all messages from all Users. This <b>cannot</b> be undone.<br/>";
-                echo "<a href='administration.php?func=4&confirm'>Confirm</a> ";
+                echo "<a href='administration.php?func=5&confirm'>Confirm</a> ";
             }
             echo "<a href='administration.php'>Back</a></div>";
             break;
