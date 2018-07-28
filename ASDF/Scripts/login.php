@@ -71,7 +71,15 @@ if (isset($_REQUEST['login'])) { //Checks that user was trying to login
             //Updates the last-logged-in variable
             $signal_mode = 'login';
             include_once 'signaller.php';
-            header("Location: ../task-board.php");
+            //Checks for a Sprint in-progress
+            $sql = "SELECT * FROM sprints
+                WHERE backlogTotal IS NULL";
+            $result = mysqli_query($db, $sql);
+            if (mysqli_num_rows($result) > 0) {  // Send to Task Board when Sprint is in progress
+                header("Location: ../task-board.php");
+            } else { //Otherwise send to Product Backlog
+                header("Location: ../pbl.php");
+            }
         }
     } else {
         header('Location: ../index.php?error');

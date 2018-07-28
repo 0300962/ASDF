@@ -140,7 +140,7 @@ if (isset($_GET['func'])) {
                     echo "<form id='form{$pbis[$i]}'>
                             Sub-task Description:<br/>
                             <textarea id='task{$pbis[$i]}' maxlength='300' rows='3' cols='30' placeholder='Enter sub-task details' required></textarea>
-                            Effort: <input type='number' id='effort{$pbis[$i]}' min='1' max='32' required> 
+                            Effort: <input type='number' id='effort{$pbis[$i]}' min='1' max='32' value='1' required> 
                             <button onclick='update({$pbis[$i]})'>Save</button>
                     </form>";
                     echo "</div></div>";

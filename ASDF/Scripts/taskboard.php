@@ -55,7 +55,7 @@ while ($row = mysqli_fetch_array($result)) {
                         <div class='menu-options'>";
             echo "<form id='form{$currentPBI}'>Sub-task Description:<br/>
                         <textarea id='task{$currentPBI}' maxlength='300' rows='3' cols='30' placeholder='Enter sub-task details' required></textarea>
-                        Effort: <input type='number' id='effort{$currentPBI}' min='1' max='32' required> 
+                        Effort: <input type='number' id='effort{$currentPBI}' min='1' max='32' value='1' required> 
                         <button onclick='newSBI({$currentPBI})'>Save</button>
                   </form>";
             echo "</div></div>";
