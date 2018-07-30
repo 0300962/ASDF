@@ -10,7 +10,7 @@ include 'header.php';
 <script> //Sets the navbar link and title to show which page you're on
     document.getElementById("guide").className += " active";
     document.title = "ASDF - Help Page";
-
+    //Adds event listeners to every section on the page once the page is loaded
     window.onload = function() {
         var chapters = document.getElementsByClassName("chapter");
         var i;
@@ -27,9 +27,6 @@ include 'header.php';
             });
         }
     }
-
-
-
 </script>
     <link rel="stylesheet" href="CSS/guide.css">
 <br/>
@@ -37,12 +34,14 @@ include 'header.php';
 <h3>Help</h3>
     <h4>System Requirements</h4>
     <ul>
-        <li>PHP version 5.6, or 7.2 tested</li>
-        <li>MySQL database server</li>
+        <li>PHP versions 5.6.31 and 7.0.26 tested</li>
+        <li>Apache versions 2.4.27 and 2.4.6 tested</li>
+        <li>MySQL-compliant database server - MySQL 5.7.19 and MariaDB 10.1.31 tested</li>
         <li>HTML5-compliant browser with cookies enabled</li>
         <li>1920x1080 full-colour monitor recommended</li>
     </ul>
-    For more information regarding Scrum, see xxx, or for Agile in general, why not try xxx.
+    For more information regarding Scrum, see <a href="https://www.scrum.org/resources/what-is-scrum">Scrum.org</a> or
+    for Agile in general, why not try <a href="https://www.agilealliance.org/agile101/">The Agile Alliance</a>
 </div><br/>
 <div id="sections">
 <div id="section">
@@ -104,10 +103,10 @@ include 'header.php';
     ASDF uses a Task Board, you saw it when you logged-in.  It's a simplified version of a Kanban board, because ASDF is
     designed for development projects and not manufacturing (like Kanban is).  Each Kanban swim-lane is an SBI; the queue
     is the Sprint Backlog; there is no pulling-in work as it is set at the start of the Sprint, and there are no capacity
-        limits on the different 'activities' (states on the Task Board).  ASDF only supports one project and one team at a time.</div>
+    limits on the different 'activities' (states on the Task Board).  ASDF only supports one project and one team at a time.</div>
     <button class="chapter">Something else?</button>
     <div class="guide">
-    You're welcome to get in touch at xxx.</div>
+    You're welcome to get in touch at <a id="images" href="https://github.com/0300962/ASDF">GitHub</a></div>
 </div>
 </div>
 <?php

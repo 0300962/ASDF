@@ -30,7 +30,7 @@
     if (file_exists('Scripts/connection.php')) {
         if (isset($_GET['error'])) {
                 echo "<div id='login_banner'>Incorrect User Name or Password!<br/></div>";
-            }
+        }
     ?>
     <div id="login_panel">
         Please sign-in to ASDF:<br/>
@@ -40,6 +40,17 @@
             <input type="submit" name="login" value="Login">
         </form><br/>NOTE: This system uses cookies to control access and permissions.
     </div>
+    <script>
+        //Checks for HTML Server-Sent Events Support
+        if(typeof(EventSource) === "undefined") {
+           document.getElementById("login_panel").innerHTML += "<br/>Your browser does not support SSE; you can still use the" +
+                " system but you will not receive live updates from your team.";
+        }
+        //Checks if Cookies are enabled
+        if(!navigator.cookieEnabled) {
+            document.getElementById("login_panel").innerHTML += "<br/>Error: Your browser does not have cookies enabled.";
+        }
+    </script>
     <div id="disclaimers">
         ASDF - the Agile Software Development Framework is a modern web application designed to help small development teams
         adopt an Agile methodology for their next project.  It provides the tools and guidance to help your team work in a
