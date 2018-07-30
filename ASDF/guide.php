@@ -48,6 +48,19 @@ include 'header.php';
         document.getElementById(choice).style.display = "block";
         document.getElementById(buttn).className += " active";
     }
+    //Swaps between Waterfall and Agile graphics
+    var state = false;  //Flag to store current image
+    function changeImage() {
+        if (state) {
+            document.getElementById("graphic").setAttribute("src", "CSS/waterfall.png");
+            document.getElementById("graphic").setAttribute("alt", "Waterfall development process");
+        } else {
+            document.getElementById("graphic").setAttribute("src", "CSS/agile.png");
+            document.getElementById("graphic").setAttribute("alt", "Agile development cycles");
+        }
+        state = !state; //Inverts flag
+    }
+
 </script><br/>
 <link rel="stylesheet" href="CSS/guide.css">
 <div id="sections">
@@ -63,6 +76,9 @@ include 'header.php';
     some projects- if you’re building a house you start on the ground, not the roof.  But what if the plan was wrong?
     What if the customer thought they wanted one thing, but actually needed something else?  What if it takes longer than
     you thought to develop, do you still have time to test everything?</p>
+    <div class="img_cont"><img id="graphic" src="CSS/waterfall.png" alt="Waterfall development process">
+    </div><br/>
+        <button id="images" onclick="changeImage()">Compare Agile and Waterfall Processes</button>
     <p>The answer to these problems is to not develop the whole product in one cycle.  By all means, plan, develop and
     test, but do it on a much shorter scale and limited scope.  This is the essence of being Agile; you let your customer
     see progress as it happens, so they can let you know you’re still on the right track.  If there are delays along the
@@ -171,6 +187,8 @@ include 'header.php';
 </div>
 <div class="section" id="how_to">
     <h3>How do I use ASDF?</h3>
+    <div id="how_to_cont">
+        <div id="lh_cont">
     If you’ve made it this far then you’re doing something right!<br/>
     ASDF is designed to help with using the Scrum process.  It doesn’t replace your existing messaging, document control,
     CRM system or any of that.  What it does do is provide a Product Backlog, Sprint Backlog and Task Board for the team,
@@ -181,6 +199,10 @@ include 'header.php';
         echo "<div class='admin'>As an Admin user, you will see additional guidance below about using the system.</div>";
     }
     ?>
+        </div>
+    <div id="rh_cont"><img src="CSS/process.png" alt="Flow chart of ASDF process"></div>
+    </div>
+
     <button class="chapter">Before/After Sprint</button>
     <div class="guide">
         <?php

@@ -30,7 +30,12 @@
     margin: 5px;
     padding: 5px;
 }
-
+img {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
 #intro {
 
 }
@@ -53,16 +58,31 @@
     background-color: white;
 }
 
-#sections > button {
+#sections > button, #images {
     border: none;
     border-radius: 10px;
     padding: 10px;
     background-color: #b92f2f;
     color: white;
 }
-#sections > button:hover, #sections > button.active {
+#sections > button:hover, #sections > button.active, #images:hover {
     background-color: #2fb9b9;
 }
+#how_to_cont {
+    display: flex;
+    flex-direction: row;
+}
+
+#lh_cont {
+    width: 50%;
+}
+#rh_cont {
+    width: 50%;
+    position: relative;
+    top: -30px;
+}
+
+
 
 @media (max-width: 1150px) {
     #sections {
