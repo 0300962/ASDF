@@ -25,6 +25,7 @@ include_once "Scripts/connection.php";
     <link rel="stylesheet" href="./CSS/header.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" type="image/png" href="CSS/asdf.png">
     <title>ASDF - Agile Software Development Framework</title>
 </head>
 
