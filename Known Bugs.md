@@ -10,6 +10,7 @@ The following are known issues with the current version of ASDF:
 - Task Board updates still redraw full board rather than just affected items
 - Burndown Graphs display incorrectly prior to completing first Sprint
 - Formatting is awful with IE-11
+- New users able to escape into system without defining password (prompted again at next login) 
 
 
-Last updated: 30-07-18
+Last updated: 31-07-18
