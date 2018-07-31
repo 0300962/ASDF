@@ -8,7 +8,7 @@
 
 include_once 'header.php';
 
-if (!$_SESSION['logged-in'] OR !isset($_COOKIE['Logged-in'])) {
+if ($_SESSION['status'] != '1') { //Checks for Admin user
     header('Location: index.php');
     exit;
 }
@@ -168,7 +168,7 @@ if (isset($_GET['func'])) { //Checks what it's being asked to do
             echo "This utility allows you to export all project data (Product Backlog, SBIs and Sprint History) to file;
             this does not delete anything from your system.  PBI, SBI and Sprint History will be stored into one .csv file,
             in that order.<br/>Press the button to proceed. ";
-            echo "<a href='administration.php?func=6&proceed'>Continue</a> ";
+            echo "<a href='administration.php?func=7&proceed'>Continue</a> ";
             echo "<a href='administration.php'>Back</a><br/>";
 
             if(isset($_GET['proceed'])) {

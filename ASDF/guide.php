@@ -451,6 +451,8 @@ include 'header.php';
     <button class="chapter">Guide</button>
     <div class="guide">
         <p>That's this page!</p>
+        <p>If you're an Admin user, you'll see additional instructions in the How-To section about how to manage the system
+        and resolve common problems with uesr accounts etc.</p>
     </div>
     <button class="chapter">Chat</button>
     <div class="guide">
