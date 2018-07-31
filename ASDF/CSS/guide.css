@@ -81,10 +81,12 @@
     position: relative;
     top: -30px;
 }
+#rh_cont img {
+    width: 350px;
+}
 
 
-
-@media (max-width: 1150px) {
+@media (max-width: 1500px) {
     #sections {
         width: 1000px;
     }
