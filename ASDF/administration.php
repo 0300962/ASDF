@@ -185,9 +185,10 @@ if (isset($_GET['func'])) { //Checks what it's being asked to do
                     $text = "pbiNo, userStory, acceptance, priority, completed, blank, blank \n";
                     fwrite($backup, $text);
                     while ($row = mysqli_fetch_assoc($result)) {
-                        $story = str_replace(',','', $row['userStory']); //Deletes commas from text fields
-                        $criteria = str_replace(',', '', $row['acceptance']);
-                        $text = "{$row['pbiNo']}, \"{$story}\", \"{$criteria}\", {$row['priority']}, {$row['completed']}, , \n";
+                        $bad_chars = array(",", "\n", "\r"); //List of characters to remove from details (Comma, Newline, Carriage Return)
+                        $story = str_replace($bad_chars,'', $row['userStory']); //Cleans the user-input data
+                        $criteria = str_replace($bad_chars, '', $row['acceptance']); //Cleans the user-input data
+                        $text = "{$row['pbiNo']}, \"{$story}\", \"{$criteria}\", \" {$row['priority']}\", \" {$row['completed']}\", , \n";
                         fwrite($backup, $text);
                     }
                     echo "PBIs saved OK.<br/>";
@@ -201,10 +202,10 @@ if (isset($_GET['func'])) { //Checks what it's being asked to do
                 if (mysqli_num_rows($result) > 0) {
                     $text = "sbiNo, pbiNo, task, inProgress, testing, done, effort\n";
                     fwrite($backup, $text);
+                    $bad_chars = array(",", "\n", "\r"); //List of characters to remove from details (Comma, Newline, Carriage Return)
                     while ($row = mysqli_fetch_assoc($result)) {
-                        $task = str_replace(',', '', $row['task']); //Deletes commas from text field
-                        $text = "{$row['sbiNo']}, {$row['pbiNo']}, \"{$task}\", {$row['inProgress']}, {$row['testing']},
-                         {$row['done']}, {$row['effort']}\n";
+                        $task = str_replace($bad_chars, '', $row['task']); //Deletes commas from text field
+                        $text = "{$row['sbiNo']}, {$row['pbiNo']}, \"{$task}\", \" {$row['inProgress']}\", \" {$row['testing']}\", \" {$row['done']}\", \" {$row['effort']}\"\n";
                         fwrite($backup, $text);
                     }
                     echo "SBIs saved OK.<br/>";
@@ -222,8 +223,7 @@ if (isset($_GET['func'])) { //Checks what it's being asked to do
                     $text = "sprintNo, startDate, endDate, startingBacklog, backlogTotal, blank, blank\n";
                     fwrite($backup, $text);
                     while ($row = mysqli_fetch_assoc($result)) {
-                        $text = "{$row['sprintNo']}, {$row['startDate']}, {$row['endDate']}, {$row['startingBacklog']},
-                         {$row['backlogTotal']}, , \n";
+                        $text = "{$row['sprintNo']}, {$row['startDate']}, {$row['endDate']}, {$row['startingBacklog']}, \" {$row['backlogTotal']}\", , \n";
                         fwrite($backup, $text);
                     }
                     echo "Project history saved OK.<br/>";
