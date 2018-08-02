@@ -115,7 +115,7 @@ switch ($_GET['stage']) {
             echo "<input type='hidden' name='host' value='{$host}'>";
             echo "<input type='hidden' name='user' value='{$user}'>";
             echo "<input type='hidden' name='pw' value='{$pw}'>";
-            echo "<input name='database' type='text' placeholder='Optional - database name'> ";
+            echo "<input name='database' type='text' value='asdf'> ";
             echo "<input type='submit' value='Next Step...'></form>";
         } else { //Database connection did not work
             echo "Database connection unsuccessful; please check and try again.";

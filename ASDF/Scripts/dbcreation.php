@@ -13,9 +13,19 @@ if (isset($userDB)) { //Checks for a custom database name
     //Creates the database
     $sql = "CREATE DATABASE IF NOT EXISTS {$userDB};";
     $result = mysqli_query($db, $sql);
+    if (!$result) {  //Could not create Database
+        echo "Create DB Failed<br/>";
+        echo $sql;
+        print_r(mysqli_errno($db));
+    }
     //Selects the database
     $sql =  "USE {$userDB};";
     $result = mysqli_query($db, $sql);
+    if (!$result) {  //Could not create Database
+        echo "Could not set DB to use<br/>";
+        echo $sql;
+        print_r(mysqli_errno($db));
+    }
 } else {
     //Creates the database
     $sql = "CREATE DATABASE IF NOT EXISTS asdf;";
