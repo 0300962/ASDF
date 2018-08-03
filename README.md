@@ -4,6 +4,8 @@ ASDF is a free, open-source web application built to make it easy for developers
 
 <=<= Work in Progress! Estimated Completion by September 2018 =>=>
 
+![ASDF screenshot showing Task Board](/Task%20Board.JPG?raw=true)
+
 Designed specifically for developers who are new to Agile, it features a guided setup mode and help pages to keep the team on the right track as they dip their keyboards into Scrum-like Agile software development.  Team members can log-in, update their latest progress on the Task Board, see how the project is progressing from Burndown charts, define user stories and prioritise the backlog, and so on.
 ASDF does NOT include a lot of extra business features (accounting, timekeeping, version control, etc).  Chances are if you need that, you've already got a better version of it that I can provide by myself in three months.
 
