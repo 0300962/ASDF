@@ -89,6 +89,12 @@ if (isset($_POST['story']) AND ($_SESSION['status'] == 1)) {
             </form>
         </div>
         <?php
+    } else {
+        ?>
+        <div id="disclaimers">
+            Only Admin users can add or reorder PBIs, and only when there's not a Sprint in progress.
+        </div>
+    <?php
     }
 ?>
 <script type="text/javascript">

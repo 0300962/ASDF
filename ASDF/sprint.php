@@ -199,8 +199,9 @@ if (isset($_GET['func'])) {
             $result = mysqli_query($db, $sql);
             $row = mysqli_fetch_array($result);
             $remaining = $row['COUNT(pbiNo)'];
+            $endDate = ''.date('Y-m-d');
             //Sets the number of outstanding PBIs when the Sprint closed
-            $sql = "UPDATE sprints SET backlogTotal = '{$remaining}' WHERE backlogTotal IS NULL;";
+            $sql = "UPDATE sprints SET backlogTotal = '{$remaining}', endDate = '{$endDate}' WHERE backlogTotal IS NULL;";
             $result = mysqli_query($db, $sql);
             if (!$result) {
                 echo "Error: Could not close Sprint.";
