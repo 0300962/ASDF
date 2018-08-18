@@ -2,7 +2,6 @@
 
 ASDF is a free, open-source web application built to make it easy for developers to work together in an Agile environment.  
 
-<=<= Work in Progress! Estimated Completion by September 2018 =>=>
 
 ![ASDF screenshot showing Task Board](/Task%20Board.JPG?raw=true)
 

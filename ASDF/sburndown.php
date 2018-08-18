@@ -70,9 +70,9 @@ function format_date($date) {
 
         //Custom comparator function to compare the dates for each array
         function compare($a, $b) {
-            $d1 = array_keys($a); //Gets the key value of the first row
-            $d1 = $d1[0]; //Extracts to a String
-            $d2 = array_keys($b);
+            $d1 = array_keys($a); //Gets the key value of the first date
+            $d1 = $d1[0]; //Extracts the date as a String
+            $d2 = array_keys($b); //Repeats for the second date
             $d2 = $d2[0];
             return strcmp($d1, $d2); //Compares the date strings as strings
         }
